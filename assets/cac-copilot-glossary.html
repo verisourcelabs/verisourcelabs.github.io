@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAC Copilot Glossary — Abbreviations &amp; Acronyms</title>
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <style>
+    @layer reset, tokens, base, chrome, glossary, motion, print;
+
+    @layer tokens {
+      :root {
+        color-scheme: light;
+        --font-display: "Source Serif 4", "Iowan Old Style", Palatino, "Times New Roman", serif;
+        --font-ui: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+        --font-lemma: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+        --step--2: clamp(0.72rem, 0.68rem + 0.2vw, 0.8rem);
+        --step--1: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
+        --step-0: clamp(0.95rem, 0.9rem + 0.3vw, 1.05rem);
+        --step-1: clamp(1.15rem, 1.02rem + 0.55vw, 1.4rem);
+        --step-2: clamp(1.7rem, 1.35rem + 1.4vw, 2.45rem);
+        --leading: 1.55;
+        --measure: 68ch;
+        --page: min(1080px, calc(100% - 2rem));
+        --gutter: clamp(1rem, 2vw, 1.5rem);
+        --radius: 14px;
+        --bg: oklch(96.4% 0.012 92);
+        --bg-accent: oklch(94% 0.028 168);
+        --paper: oklch(99.2% 0.008 92);
+        --ink: oklch(22% 0.02 70);
+        --muted: oklch(46% 0.02 70);
+        --line: oklch(88% 0.02 85);
+        --accent: oklch(42% 0.08 168);
+        --accent-soft: oklch(93% 0.035 168);
+        --accent-hot: oklch(32% 0.06 168);
+        --chip: oklch(93% 0.02 85);
+        --warn: oklch(55% 0.12 55);
+        --shadow: 0 12px 36px oklch(22% 0.02 70 / 0.08);
+        --search-h: 5.6rem;
+      }
+      [data-theme="dark"] {
+        color-scheme: dark;
+        --bg: oklch(19% 0.015 240);
+        --bg-accent: oklch(24% 0.03 180);
+        --paper: oklch(24% 0.018 240);
+        --ink: oklch(95% 0.012 95);
+        --muted: oklch(76% 0.02 220);
+        --line: oklch(36% 0.02 240);
+        --accent: oklch(78% 0.07 168);
+        --accent-soft: oklch(32% 0.04 168);
+        --accent-hot: oklch(86% 0.06 168);
+        --chip: oklch(30% 0.02 240);
+        --shadow: 0 16px 40px oklch(0% 0 0 / 0.35);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          color-scheme: dark;
+          --bg: oklch(19% 0.015 240);
+          --bg-accent: oklch(24% 0.03 180);
+          --paper: oklch(24% 0.018 240);
+          --ink: oklch(95% 0.012 95);
+          --muted: oklch(76% 0.02 220);
+          --line: oklch(36% 0.02 240);
+          --accent: oklch(78% 0.07 168);
+          --accent-soft: oklch(32% 0.04 168);
+          --accent-hot: oklch(86% 0.06 168);
+          --chip: oklch(30% 0.02 240);
+          --shadow: 0 16px 40px oklch(0% 0 0 / 0.35);
+        }
+      }
+    }
+
+    @layer reset {
+      *, *::before, *::after { box-sizing: border-box; }
+      html { scroll-behavior: smooth; hanging-punctuation: first last; }
+      body { margin: 0; }
+      button, input { font: inherit; color: inherit; }
+    }
+
+    @layer base {
+      body {
+        font-family: var(--font-display);
+        font-size: var(--step-0);
+        line-height: var(--leading);
+        color: var(--ink);
+        background:
+          radial-gradient(90rem 28rem at -10% -20%, var(--bg-accent), transparent 55%),
+          radial-gradient(50rem 20rem at 110% 0%, color-mix(in oklch, var(--accent) 16%, transparent), transparent 50%),
+          var(--bg);
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "kern", "liga", "onum";
+      }
+      .shell { width: var(--page); margin-inline: auto; }
+    }
+
+    @layer chrome {
+      header.hero {
+        padding: 2.4rem var(--gutter) 1.2rem;
+        width: var(--page);
+        margin-inline: auto;
+      }
+      .hero-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      h1 {
+        font-size: var(--step-2);
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin: 0 0 0.4rem;
+        text-wrap: balance;
+        font-feature-settings: "ss01", "kern";
+      }
+      .lede {
+        color: var(--muted);
+        margin: 0;
+        max-width: var(--measure);
+        text-wrap: pretty;
+      }
+      .toolbar {
+        display: flex;
+        gap: 0.4rem;
+        font-family: var(--font-ui);
+      }
+      .toolbar button {
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 999px;
+        padding: 0.4rem 0.75rem;
+        font-size: var(--step--1);
+        cursor: pointer;
+      }
+      .toolbar button:hover,
+      .toolbar button[aria-pressed="true"] {
+        background: var(--accent-soft);
+        border-color: color-mix(in oklch, var(--accent) 40%, var(--line));
+      }
+      .toolbar button:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .search-wrap {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        isolation: isolate;
+        padding: 0.65rem var(--gutter) 0.8rem;
+        background: color-mix(in oklch, var(--bg) 72%, transparent);
+        backdrop-filter: blur(16px) saturate(1.2);
+        border-bottom: 1px solid color-mix(in oklch, var(--line) 80%, transparent);
+      }
+      .search-inner {
+        width: var(--page);
+        margin-inline: auto;
+        position: relative;
+      }
+      label[for="q"] {
+        display: block;
+        font-family: var(--font-ui);
+        font-size: var(--step--2);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.35rem;
+      }
+      #q {
+        width: 100%;
+        font-family: var(--font-ui);
+        font-size: var(--step-0);
+        padding: 0.85rem 1rem 0.85rem 2.7rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background-color: var(--paper);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%235c564c' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='9' cy='9' r='6'/%3E%3Cpath d='M14 14l4 4'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 0.9rem 50%;
+        box-shadow: var(--shadow);
+        outline: none;
+        accent-color: var(--accent);
+      }
+      #q:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow);
+      }
+      #q::placeholder { color: color-mix(in oklch, var(--muted) 70%, var(--paper)); }
+
+      #suggest {
+        display: none;
+        position: absolute;
+        inset-inline: 0;
+        top: calc(100% - 2px);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0 0 var(--radius) var(--radius);
+        max-height: min(22rem, 60dvh);
+        overflow: auto;
+        box-shadow: var(--shadow);
+        z-index: 40;
+        mask-image: linear-gradient(#000 92%, transparent);
+      }
+      #suggest.open { display: block; }
+      #suggest button {
+        display: grid;
+        grid-template-columns: minmax(6.5rem, auto) 1fr;
+        gap: 0.6rem;
+        width: 100%;
+        text-align: left;
+        border: 0;
+        background: transparent;
+        padding: 0.55rem 1rem;
+        font-family: var(--font-ui);
+        font-size: var(--step--1);
+        cursor: pointer;
+      }
+      #suggest button[aria-selected="true"],
+      #suggest button:hover { background: var(--accent-soft); }
+      #suggest .abbr {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        color: var(--accent-hot);
+      }
+      #suggest .exp { color: var(--muted); }
+
+      .meta {
+        width: var(--page);
+        margin: 0.85rem auto 0;
+        padding-inline: var(--gutter);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+        font-family: var(--font-ui);
+        font-size: var(--step--1);
+        color: var(--muted);
+      }
+      .page-wrap {
+        width: var(--page);
+        margin: 0 auto 4rem;
+        padding-inline: var(--gutter);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0 1.25rem;
+      }
+      .az {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.28rem;
+        margin: 0.6rem 0 1rem;
+      }
+      @media (min-width: 960px) {
+        .page-wrap {
+          grid-template-columns: 3rem minmax(0, 1fr);
+        }
+        .az {
+          position: sticky;
+          top: calc(var(--search-h) + 0.6rem);
+          align-self: start;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          max-height: calc(100dvh - var(--search-h) - 1.2rem);
+          overflow: auto;
+          padding: 0;
+          margin: 0.6rem 0 0;
+          scrollbar-width: thin;
+        }
+      }
+      .az a {
+        font-family: var(--font-ui);
+        font-size: var(--step--2);
+        font-variant-numeric: tabular-nums;
+        text-decoration: none;
+        color: var(--accent-hot);
+        min-width: 1.65rem;
+        text-align: center;
+        padding: 0.22rem 0.3rem;
+        border-radius: 6px;
+        background: var(--chip);
+      }
+      .az a:hover { background: var(--accent-soft); }
+      .az a.empty { opacity: 0.32; pointer-events: none; }
+      .az a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+    }
+
+    @layer glossary {
+      main { min-width: 0; }
+      .letter {
+        position: sticky;
+        top: var(--search-h);
+        z-index: 8;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: end;
+        gap: 0.75rem;
+        margin: 1.5rem 0 0.45rem;
+        padding: 0.45rem 0 0.3rem;
+        font-family: var(--font-ui);
+        font-size: var(--step-1);
+        letter-spacing: 0.14em;
+        color: var(--accent);
+        background: color-mix(in oklch, var(--bg) 88%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .letter::after {
+        content: "";
+        height: 1px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        margin-bottom: 0.35rem;
+      }
+
+      article {
+        container-type: inline-size;
+        container-name: entry;
+        content-visibility: auto;
+        contain-intrinsic-size: 0 7.5rem;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 0.85rem 1rem 0.95rem;
+        margin: 0.5rem 0;
+        scroll-margin-top: calc(var(--search-h) + 2.6rem);
+        display: grid;
+        grid-template-columns: minmax(7rem, 22%) 1fr;
+        column-gap: 1rem;
+        row-gap: 0.2rem;
+      }
+      article h2 {
+        font-family: var(--font-lemma);
+        font-size: var(--step-1);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin: 0;
+        font-variant-numeric: tabular-nums;
+        align-self: start;
+      }
+      article h2 span.full {
+        display: block;
+        font-weight: 500;
+        font-size: var(--step--1);
+        color: var(--muted);
+        letter-spacing: 0;
+        text-wrap: pretty;
+      }
+      article p {
+        margin: 0;
+        grid-column: 2;
+        text-wrap: pretty;
+      }
+      .where {
+        grid-column: 2;
+        margin-top: 0.35rem;
+        font-family: var(--font-ui);
+        font-size: var(--step--2);
+        color: var(--muted);
+      }
+      @container entry (max-width: 36rem) {
+        article {
+          grid-template-columns: 1fr;
+        }
+        article p, .where { grid-column: 1; }
+        article h2 { margin-bottom: 0.15rem; }
+      }
+      article:target {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-soft);
+        background:
+          linear-gradient(90deg, var(--accent), var(--accent)) 0 0 / 4px 100% no-repeat,
+          var(--paper);
+      }
+      article mark {
+        background: color-mix(in oklch, var(--accent) 28%, var(--paper));
+        color: inherit;
+        padding: 0 0.12em;
+        border-radius: 3px;
+      }
+      [data-density="compact"] article {
+        padding: 0.45rem 0.75rem;
+        margin: 0.28rem 0;
+        border-radius: 8px;
+      }
+      [data-density="compact"] article p { display: none; }
+      [data-density="compact"] .where { display: none; }
+
+      footer.colophon {
+        width: var(--page);
+        margin-inline: auto;
+        padding: 0 var(--gutter) 3rem;
+        color: var(--muted);
+        font-family: var(--font-ui);
+        font-size: var(--step--1);
+      }
+      .hidden { display: none !important; }
+      #empty {
+        display: none;
+        padding: 2.4rem 0;
+        color: var(--muted);
+        text-align: center;
+        font-family: var(--font-ui);
+      }
+    }
+
+    @layer motion {
+      @media (prefers-reduced-motion: no-preference) {
+        article {
+          transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+        }
+        #suggest.open {
+          animation: drop 140ms ease-out;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { animation: none !important; transition: none !important; }
+      }
+      @keyframes drop {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: none; }
+      }
+    }
+
+    @layer print {
+      @media print {
+        :root { --bg: white; --paper: white; --shadow: none; }
+        body { background: white; font-size: 10.5pt; color: black; }
+        .search-wrap, .toolbar, .az, .where, #empty { display: none !important; }
+        header.hero { padding: 0 0 0.8rem; }
+        .page-wrap { display: block; width: auto; }
+        main {
+          columns: 2;
+          column-gap: 1.4rem;
+        }
+        .letter {
+          position: static;
+          break-after: avoid;
+          letter-spacing: 0.08em;
+          background: none;
+        }
+        article {
+          break-inside: avoid;
+          border: 0;
+          border-bottom: 0.4pt solid #ccc;
+          border-radius: 0;
+          padding: 0.35rem 0 0.5rem;
+          margin: 0;
+          box-shadow: none;
+          display: block;
+        }
+        article p { display: block; }
+        a { color: inherit; text-decoration: none; }
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <h1>CAC Copilot glossary</h1>
+        <p class="lede">Alphabetical list of abbreviations and acronyms used for CAC Copilot: Cloud Run + IAP in us-east4 (no product GPU; Mode B retired 8 Sep 2026), coding systems, and the written-BAA path for Workspace, Google Cloud, and xAI. Prefix search matches the start of an abbreviation or any word in its expansion.</p>
+      </div>
+      <div class="toolbar" role="group" aria-label="Display options">
+        <button type="button" id="theme" aria-pressed="false">Dark</button>
+        <button type="button" id="density" aria-pressed="false">Compact</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-inner">
+      <label for="q">Search glossary</label>
+      <input id="q" type="search" autocomplete="off" spellcheck="false"
+        placeholder="Type a prefix — e.g. hip, icd, vram, sft…"
+        aria-autocomplete="list" aria-controls="suggest" aria-expanded="false" role="combobox" />
+      <div id="suggest" role="listbox" aria-label="Matching terms"></div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <span id="count"></span>
+    <span>Compiled from project chats · updated 8 Sep 2026 (RCM process lemmas + Flash-Next / RDNA 4 + LRU)</span>
+  </div>
+  <div class="page-wrap">
+    <nav class="az" id="az" aria-label="Jump to letter"></nav>
+    <div>
+      <main id="list"></main>
+      <p id="empty">No entries match that prefix.</p>
+    </div>
+  </div>
+  <footer class="colophon">
+    Open this file in any browser. Nothing is uploaded; search runs only on this page.
+  </footer>
+
+  <script>
+    const TERMS = [
+      {a:"12V-2x6", f:"12-volt 2x6 power connector", d:"Current ATX 3.x GPU power connector used on RTX 40/50-series cards. Size the PSU cable for a 4090/5090-class build."},
+      {a:"A100", f:"NVIDIA A100 Tensor Core GPU", d:"Datacenter Ampere GPU (40 or 80 GB) available as a Vertex custom-training accelerator."},
+      {a:"AAPC", f:"American Academy of Professional Coders", d:"Issuer of CPC, CPC-A, CPB, COC, CIC, CDEO/CDEI, and RCMS. Default professional-fee / physician-office body for Mode A “certified coder” seats. RCMS is the mid-level whole-cycle credential, not a coding exam. See CODER_CREDENTIALS.md."},
+      {a:"ACDIS", f:"Association of Clinical Documentation Integrity Specialists", d:"Issuer of CCDS and CCDS-O. Hospital CDI hire filter more often than AAPC CDEO/CDEI. See CODER_CREDENTIALS.md."},
+      {a:"AHIMA", f:"American Health Information Management Association", d:"Issuer of CCA, CCS, CCS-P, CDIP, RHIT, RHIA. Owns the HIM / coding / CDI slice of the revenue cycle, not the whole RCM continuum (that definition is HFMA). Hospital inpatient default is CCS. Critic schema uses ahima_compliant_question for CDI queries."},
+      {a:"AIB", f:"Add-in board (partner card)", d:"A GPU built by ASUS, MSI, Gigabyte, and others rather than NVIDIA Founders Edition."},
+      {a:"AI", f:"Artificial intelligence", d:"Umbrella term for the local copilot, Vertex-tuned models, and Google AI Studio work in this project."},
+      {a:"AIO", f:"All-in-one liquid cooler", d:"Closed-loop CPU cooler recommended as an option for the Linux workstation."},
+      {a:"All-Cloud Run", f:"All-Cloud-Run PHI SaaS track", d:"Post-Startups + $2k-credit production target: same Cloud Run image family holds real charts under a BA stack (IAP, us-east4, VPC-SC, four BAAs). Not the Startup Demo. Not Safe Harbor. No GPU. See specs/CAC_COPILOT_SYSTEM_STATE.md §1.3."},
+      {a:"AM5", f:"AMD Socket AM5", d:"Current AMD Ryzen 7000/9000 desktop socket planned for the workstation motherboard."},
+      {a:"AMD", f:"Advanced Micro Devices", d:"Maker of Ryzen CPUs and Radeon GPUs. Considered, then deprioritized versus NVIDIA CUDA for this CAC box."},
+      {a:"API", f:"Application programming interface", d:"Call surfaces: local llama.cpp/Ollama/vLLM later; Cloud Run POST /v1/egress/inspect; Grok critic API; Vertex judge. Grok API is not covered by a Google BAA — it needs its own xAI BAA + usually ZDR before PHI."},
+      {a:"ARM", f:"ARM architecture", d:"CPU ISA used by Snapdragon Copilot+ PCs, Grace, and DGX Spark — contrasted with x86 desktops."},
+      {a:"ATX", f:"Advanced Technology eXtended", d:"Standard desktop case/PSU form factor. ATX 3.x is required for modern high-watt NVIDIA cards."},
+      {a:"AWQ", f:"Activation-aware Weight Quantization", d:"Integer quantization method cited for fitting larger models into limited VRAM."},
+      {a:"BAA", f:"Business Associate Agreement (Google: Business Associate Addendum / Amendment)", d:"Written HIPAA contract with each vendor that will see PHI. This stack needs separate BAAs: (1) customer clinic ↔ Verisource, (2) Google Workspace click-accept in Admin console, (3) Google Cloud click-accept in Cloud Console (tos?id=baa), (4) xAI questionnaire — not self-serve. A BAA is not a compliance certificate and does not cover AI Studio, consumer Gemini, or consumer Grok."},
+      {a:"BF16", f:"Brain floating-point 16-bit", d:"Mixed-precision format used in training and some inference stacks."},
+      {a:"BIOS", f:"Basic Input/Output System", d:"Firmware on the motherboard; relevant when enabling Resizable BAR, EXPO, and PCIe settings."},
+      {a:"B200", f:"NVIDIA Blackwell B200", d:"Datacenter Blackwell GPU discussed in medical-AI infrastructure comparisons."},
+      {a:"CAC", f:"Computer-Assisted Coding", d:"Core product intent: software that proposes ICD-10 / CPT / HCPCS codes from clinical documentation. Also the name of the CAC Copilot project."},
+      {a:"CCA", f:"Certified Coding Associate (AHIMA)", d:"Entry-level AHIMA coding credential across settings. Stepping stone to CCS, not a hospital inpatient hire filter by itself."},
+      {a:"CCDS", f:"Certified Clinical Documentation Specialist (ACDIS)", d:"Most-used hospital CDI credential. Typically requires 2 years concurrent/retrospective CDI in a U.S. IPPS acute-care facility. Not the same as a coder cert."},
+      {a:"CCDS-O", f:"Certified Clinical Documentation Specialist — Outpatient (ACDIS)", d:"Outpatient CDI credential from ACDIS. Same 2-year CDI experience bar as CCDS."},
+      {a:"CCI", f:"Correct Coding Initiative", d:"Often used interchangeably with NCCI — CMS edits that prevent improper CPT unbundling."},
+      {a:"CCS", f:"Certified Coding Specialist (AHIMA)", d:"Hospital facility default. Covers inpatient and outpatient facility coding including ICD-10-PCS and MS-DRG. Strongest dual stack with CPC."},
+      {a:"CCS-P", f:"Certified Coding Specialist — Physician-based (AHIMA)", d:"AHIMA physician-practice coding credential. Less common first credential than CPC in that setting."},
+      {a:"CDEI", f:"Certified Documentation Expert — Inpatient (AAPC)", d:"AAPC inpatient documentation credential. Exists; not the main hospital CDI hire filter (that is CCDS or CDIP)."},
+      {a:"CDEO", f:"Certified Documentation Expert — Outpatient (AAPC)", d:"AAPC outpatient documentation credential. Exists; not the main hospital CDI hire filter (that is CCDS or CDIP)."},
+      {a:"CDI", f:"Clinical Documentation Integrity", d:"Hospital process that improves note quality so coding is supportable. Triage emits LOCAL_CDI_QUERY_DRAFT. Hire-filter creds: CCDS (ACDIS) or CDIP (AHIMA). See CODER_CREDENTIALS.md."},
+      {a:"CDIP", f:"Certified Documentation Integrity Practitioner (AHIMA)", d:"AHIMA CDI credential. Easier eligibility for coders/HIM (degree or CCS/CCS-P/RHIT/RHIA). Two years CDI recommended, not required."},
+      {a:"CI/CD", f:"Continuous integration / continuous delivery", d:"Mentioned as the way to test and ship the agent against Vertex and local models."},
+      {a:"CIC", f:"Certified Inpatient Coder (AAPC)", d:"AAPC inpatient-only facility credential. Exam includes fill-in-the-blank acute inpatient cases. Hospital default name on job posts is still usually CCS."},
+      {a:"CLI", f:"Command-line interface", d:"Primary Linux control surface (llama-server, gcloud, Docker, Tailscale)."},
+      {a:"CL30", f:"CAS latency 30", d:"Common timing target for DDR5-6000 EXPO kits in the parts list."},
+      {a:"CMEK", f:"Customer-managed encryption keys", d:"Optional GCP control so training data and tuned artifacts are encrypted with keys you manage."},
+      {a:"CMS", f:"Centers for Medicare & Medicaid Services", d:"U.S. payer that publishes NCCI, LCDs/NCDs, and many of the rules a CAC tool must respect."},
+      {a:"COC", f:"Certified Outpatient Coder (AAPC)", d:"AAPC hospital outpatient / ASC facility credential. Not inpatient. Has COC-A apprentice status until two-year equivalency is filed."},
+      {a:"CPB", f:"Certified Professional Biller (AAPC)", d:"Gets claims paid. Distinct from CPC code assignment. Dual CPC+CPB is useful for small-practice RCM. CAC Co-Pilot is not a biller; no DFT writeback in MVP."},
+      {a:"CPC", f:"Certified Professional Coder (AAPC)", d:"Default first credential for physician/outpatient professional-fee coding (CPT, HCPCS, ICD-10-CM). Mode A “certified coder” language maps here unless the seat is hospital inpatient."},
+      {a:"CPC-A", f:"Certified Professional Coder — Apprentice (AAPC)", d:"Exam-passed CPC without the two-year experience equivalency. Course alone does not drop the A. Paths: 2 yrs work; 1 yr work + 80-hr course or Practicode; 80-hr course + Practicode; Job-Ready aims to drop A ~16 weeks after the exam."},
+      {a:"CPU", f:"Central processing unit", d:"Host processor. Ryzen 9 9950X / 9700X class recommended for the single-GPU box."},
+      {a:"CPT", f:"Current Procedural Terminology", d:"AMA procedure codes the copilot must assign from operative and encounter notes."},
+      {a:"CUDA", f:"Compute Unified Device Architecture", d:"NVIDIA parallel-compute platform. Chosen over ROCm for lower friction on medical NLP tooling."},
+      {a:"CU", f:"Compute unit", d:"AMD GPU shader-cluster unit; appeared in RX 9000-series spec comparisons."},
+      {a:"CustomJob", f:"Vertex AI CustomJob", d:"Serverless training job that runs your container on chosen GPUs/TPUs."},
+      {a:"DDR5", f:"Double Data Rate 5 memory", d:"System RAM generation for AM5. 64 GB kits are unusually expensive in August 2026."},
+      {a:"dGPU", f:"Discrete graphics processing unit", d:"Add-in GPU (3090/4090/5090) as opposed to an iGPU or NPU."},
+      {a:"DGX", f:"NVIDIA DGX", d:"NVIDIA turnkey AI systems. DGX Spark is the small Grace-Blackwell desktop variant discussed as a non-DIY alternative."},
+      {a:"DIMM", f:"Dual Inline Memory Module", d:"The physical RAM stick. Desktop builds use UDIMMs in pairs."},
+      {a:"DP", f:"DisplayPort", d:"Video output on the GPU; relevant only if you sit at the tower."},
+      {a:"DRG", f:"Diagnosis-Related Group", d:"Inpatient payment grouping that depends on accurate ICD-10 coding."},
+      {a:"E/M", f:"Evaluation and Management", d:"Office/hospital visit coding family driven by MDM or time."},
+      {a:"ECC", f:"Error-correcting code memory", d:"Found on workstation/PRO GPUs and server RAM; not on GeForce VRAM."},
+      {a:"EDT", f:"Eastern Daylight Time", d:"Timezone stamped on this conversation."},
+      {a:"EHR", f:"Electronic health record", d:"Source of notes the CAC pipeline would ingest (after export/OCR)."},
+      {a:"EOB", f:"Explanation of Benefits", d:"Payer document used in billing reconciliation and denial workflows."},
+      {a:"ePHI", f:"Electronic protected health information", d:"PHI in electronic form. Local: LUKS volume. Cloud: only Covered Products under the Google Cloud BAA, or Included Functionality under the Workspace BAA. Startup Demo is synthetic; airlock is envelope schema only (no SSN/ISO-date regex)."},
+      {a:"EULA", f:"End-user license agreement", d:"GeForce cards have datacenter-use limits; a shared practice server should use RTX PRO instead."},
+      {a:"EXPO", f:"Extended Profiles for Overclocking", d:"AMD memory profile used to run DDR5-6000 at rated speed."},
+      {a:"FE", f:"Founders Edition", d:"NVIDIA-made reference GPU. Often preferred on the used 3090/4090 market."},
+      {a:"FHIR", f:"Fast Healthcare Interoperability Resources", d:"Health-data API standard. No FHIR or DFT writeback in MVP. Persist accept/override locally or to Cloud SQL/BigQuery only."},
+      {a:"FIM", f:"Fill-in-the-middle", d:"Code-model training objective mentioned in local-coder model notes."},
+      {a:"FLOPS", f:"Floating-point operations per second", d:"Peak compute marketing unit (TFLOPS / PFLOPS). Less decisive than VRAM for this workload."},
+      {a:"FP4", f:"4-bit floating point", d:"Blackwell-era inference format; cited as a 5090 advantage."},
+      {a:"FP8", f:"8-bit floating point", d:"Low-precision inference/training format on modern NVIDIA Tensor Cores."},
+      {a:"FP16", f:"16-bit floating point", d:"Half-precision. Full FP16 weights usually will not fit a 70B model on 24 GB."},
+      {a:"FSDP", f:"Fully Sharded Data Parallel", d:"PyTorch distributed training strategy for custom Vertex jobs."},
+      {a:"FT", f:"Fine-tuning", d:"Updating model weights on domain examples. Prefer PEFT/LoRA before full FT."},
+      {a:"GB10", f:"Grace Blackwell 10 superchip", d:"Chip inside DGX Spark: Arm CPU + Blackwell GPU with unified memory."},
+      {a:"GB/s", f:"Gigabytes per second", d:"Memory bandwidth. Primary ceiling on LLM decode speed."},
+      {a:"GCP", f:"Google Cloud Platform", d:"Mode A host (Cloud Run + IAP in us-east4) and Vertex judge. Execute the Cloud HIPAA BAA once per billing account before any PHI project. Pre-GA services are out of the BAA."},
+      {a:"GCS", f:"Google Cloud Storage", d:"Bucket location for JSONL training sets and exported adapters."},
+      {a:"GDDR6", f:"Graphics Double Data Rate 6", d:"Memory on RX 7900 XTX and many AMD cards."},
+      {a:"GDDR6X", f:"Graphics Double Data Rate 6X", d:"Memory on RTX 3090/4090."},
+      {a:"GDDR7", f:"Graphics Double Data Rate 7", d:"Memory on RTX 50-series, including the 32 GB 5090."},
+      {a:"GDPR", f:"General Data Protection Regulation", d:"EU privacy law noted when discussing on-prem vs cloud health data."},
+      {a:"Gemma", f:"Google Gemma model family", d:"Open-weight models that can be tuned on Vertex and then run locally."},
+      {a:"Gemini", f:"Google Gemini model family", d:"Four surfaces, four rules: consumer gemini.google.com = no BAA; AI Studio = no PHI; Gemini in Workspace = Workspace BAA + Included Functionality; Gemini on Vertex / Gemini Enterprise Agent Platform = Cloud BAA. Locked critic is Grok, not Gemini; Vertex is the agree/disagree/insufficient judge."},
+      {a:"GKE", f:"Google Kubernetes Engine", d:"Custom-control alternative to Vertex serverless training and serving."},
+      {a:"GGUF", f:"GPT-Generated Unified Format", d:"llama.cpp model file format used on the Linux box."},
+      {a:"GLM", f:"Zhipu GLM model family", d:"Open models appearing in 2026 local-LLM comparison tables."},
+      {a:"GPU", f:"Graphics processing unit", d:"The accelerator that runs local inference. 24 GB NVIDIA is the recommended floor."},
+      {a:"GPTQ", f:"GPT Quantization", d:"Post-training quantization method used to shrink weights."},
+      {a:"GQA", f:"Grouped-query attention", d:"Attention design that reduces KV-cache size versus multi-head attention."},
+      {a:"H100", f:"NVIDIA H100 Hopper GPU", d:"High-end Vertex training GPU (~$10/hr class in public pricing tables)."},
+      {a:"H200", f:"NVIDIA H200 Hopper GPU", d:"Hopper refresh with more HBM; appeared in healthcare GPU guides."},
+      {a:"HBM", f:"High Bandwidth Memory", d:"Stacked memory on datacenter GPUs (H100/B200), not consumer GeForce."},
+      {a:"HCC", f:"Hierarchical Condition Category", d:"Risk-adjustment diagnosis grouping that depends on ICD-10 specificity."},
+      {a:"HCPCS", f:"Healthcare Common Procedure Coding System", d:"Includes CPT (Level I) and Level II supply/drug codes."},
+      {a:"HDMI", f:"High-Definition Multimedia Interface", d:"Alternate GPU video output."},
+      {a:"HF", f:"Hugging Face", d:"Model hub and libraries (Transformers, TRL, PEFT) used with Vertex custom jobs."},
+      {a:"HIP", f:"Heterogeneous-compute Interface for Portability", d:"AMD’s CUDA-like API under ROCm."},
+      {a:"HIPAA", f:"Health Insurance Portability and Accountability Act", d:"U.S. law (Privacy, Security, and Breach Notification Rules). HHS does not certify clouds. Google and xAI support HIPAA only inside a signed BAA plus customer configuration. Shared responsibility: the airlock, IAM, and what you paste are still yours."},
+      {a:"HITECH", f:"Health Information Technology for Economic and Clinical Health Act", d:"Strengthens HIPAA enforcement for electronic health data."},
+      {a:"HL7", f:"Health Level Seven", d:"Legacy healthcare messaging standard; still common next to FHIR."},
+      {a:"HTTPS", f:"Hypertext Transfer Protocol Secure", d:"TLS-wrapped HTTP used between thin client, tower, and GCP."},
+      {a:"IAM", f:"Identity and Access Management", d:"GCP permission system. Required after the Cloud BAA: least-privilege on the airlock service account, no PHI in IAM emails, audit logs on. IAP uses Cloud identity in front of airlock:app — do not reimplement IAP inside the process."},
+      {a:"ICD-10", f:"International Classification of Diseases, 10th Revision", d:"Diagnosis (CM) and inpatient procedure (PCS) coding system the copilot targets."},
+      {a:"ICD-10-CM", f:"ICD-10 Clinical Modification", d:"U.S. diagnosis codes assigned from notes."},
+      {a:"ICD-10-PCS", f:"ICD-10 Procedure Coding System", d:"U.S. inpatient hospital procedure codes."},
+      {a:"IDE", f:"Integrated development environment", d:"Editor used to build the agent (VS Code and similar)."},
+      {a:"iGPU", f:"Integrated graphics processing unit", d:"GPU inside the CPU; not the plan for serious local LLMs."},
+      {a:"INT4", f:"4-bit integer quantization", d:"Aggressive weight compression so 24–32B models fit in 24 GB."},
+      {a:"INT8", f:"8-bit integer quantization", d:"Higher-quality quantized inference than INT4, more VRAM."},
+      {a:"JSON", f:"JavaScript Object Notation", d:"Preferred structured output for codes, modifiers, and claim lines."},
+      {a:"JSONL", f:"JSON Lines", d:"One JSON object per line. Required dataset format for Vertex SFT."},
+      {a:"KNN", f:"K-nearest neighbors", d:"Vector retrieval method mentioned in Vertex RAG architecture notes."},
+      {a:"KV", f:"Key-value cache", d:"Per-token attention state. Grows with context length and is why 32 GB beats 24 GB on long charts."},
+      {a:"L40S", f:"NVIDIA L40S", d:"48 GB workstation/datacenter GPU cited as a HIPAA-friendlier alternative to GeForce in shared servers."},
+      {a:"LAN", f:"Local area network", d:"How the Windows thin client reaches the Linux inference box."},
+      {a:"LCD", f:"Local Coverage Determination", d:"Medicare contractor policy the copilot may need to RAG against."},
+      {a:"LLM", f:"Large language model", d:"The generator at the center of CAC Copilot (Qwen/Gemma/Gemini class)."},
+      {a:"LM Studio", f:"LM Studio", d:"Desktop app for running local GGUF models; used in consumer GPU comparisons."},
+      {a:"LoRA", f:"Low-Rank Adaptation", d:"PEFT method that trains small adapter matrices instead of all weights."},
+      {a:"LTS", f:"Long-term support", d:"Ubuntu 24.04 / 26.04 LTS recommended as the workstation OS."},
+      {a:"LUKS", f:"Linux Unified Key Setup", d:"Disk encryption for the PHI volume on the Linux tower."},
+      {a:"MCP", f:"Model Context Protocol", d:"Tool/connector protocol mentioned in agent and Copilot ecosystem notes."},
+      {a:"MDM", f:"Medical decision making", d:"One basis for E/M level selection."},
+      {a:"ML", f:"Machine learning", d:"Broader field that includes the fine-tuning jobs on Vertex."},
+      {a:"MLOps", f:"Machine learning operations", d:"Versioning, pipelines, registry, and endpoints around Vertex training."},
+      {a:"MoE", f:"Mixture of Experts", d:"Sparse architecture (only some experts fire). Can run larger total-parameter models on less VRAM."},
+      {a:"MSRP", f:"Manufacturer’s suggested retail price", d:"RTX 5090 MSRP is $1,999; August 2026 street price is roughly $4.3k–$5.1k."},
+      {a:"MTP", f:"Multi-token prediction", d:"Speculative-decoding style speedup discussed for local Qwen runs."},
+      {a:"MUE", f:"Medically Unlikely Edit", d:"CMS unit-of-service limit that a billing agent should check."},
+      {a:"NCD", f:"National Coverage Determination", d:"Medicare-wide coverage policy."},
+      {a:"NCCI", f:"National Correct Coding Initiative", d:"CMS bundling edits. A production CAC tool must apply them, not just propose codes."},
+      {a:"NDA", f:"Non-disclosure agreement", d:"Reason some teams keep code and notes on local models."},
+      {a:"NER", f:"Named-entity recognition", d:"Extraction step for diagnoses, laterality, devices, and dates before coding."},
+      {a:"NIC", f:"Network interface card", d:"Wired Ethernet on the workstation; prefer this over Wi-Fi for the inference host."},
+      {a:"NIM", f:"NVIDIA Inference Microservices", d:"Packaged NVIDIA model servers mentioned in Nsight / CUDA-copilot material."},
+      {a:"NLP", f:"Natural language processing", d:"Class of methods that turn notes into structured codes."},
+      {a:"NPI", f:"National Provider Identifier", d:"Provider ID that appears on claims; keep it off AI Studio prompts."},
+      {a:"NPU", f:"Neural processing unit", d:"On-die AI engine in Copilot+ PCs. Insufficient alone for 27B coding models."},
+      {a:"NVFP4", f:"NVIDIA 4-bit floating-point format", d:"Blackwell-native quant used in some 2026 local speed recipes."},
+      {a:"NVIDIA", f:"NVIDIA Corporation", d:"Recommended GPU vendor for this project because of CUDA maturity."},
+      {a:"NVLink", f:"NVIDIA NVLink", d:"High-speed GPU interconnect on some PRO/SXM systems, not typical GeForce desktops."},
+      {a:"NVMe", f:"Non-Volatile Memory Express", d:"Fast SSD interface for OS, models, and PHI volumes."},
+      {a:"OCR", f:"Optical character recognition", d:"Turns scanned charts and EOBs into text the model can read."},
+      {a:"OEM", f:"Original equipment manufacturer", d:"Prebuilt PC vendors (HP OMEN example) versus a DIY parts list."},
+      {a:"Ollama", f:"Ollama", d:"Simple local model runner used in many community tok/s tables."},
+      {a:"ONNX", f:"Open Neural Network Exchange", d:"Portable model format appearing in some AMD/NVIDIA comparison benches."},
+      {a:"OS", f:"Operating system", d:"Ubuntu on the GPU box; Windows 11 Pro on the thin client."},
+      {a:"PCI DSS", f:"Payment Card Industry Data Security Standard", d:"Compliance regime listed alongside HIPAA in cloud-security notes."},
+      {a:"PCIe", f:"Peripheral Component Interconnect Express", d:"Slot the GPU uses. Prefer x16 electrically; dual-GPU builds often drop to x8/x8."},
+      {a:"PCS", f:"Procedure Coding System", d:"Short form of ICD-10-PCS."},
+      {a:"PEFT", f:"Parameter-efficient fine-tuning", d:"Family of methods (LoRA/QLoRA) that adapt a model without rewriting all weights."},
+      {a:"PFLOPS", f:"Petaflops", d:"1015 FLOPS. Marketing figure for Spark / Blackwell systems."},
+      {a:"PHI", f:"Protected health information", d:"Identifiable health data. Startup Demo uses synthetic packets only. Cloud may hold real charts only after the four BAAs are in force, the airlock envelope passes, and durable encounter IDs stay off the wire (use REQ_ UUIDs). A Cloud Run image is not Safe Harbor."},
+      {a:"PII", f:"Personally identifiable information", d:"Identity data more generally. Overlaps PHI in clinical notes."},
+      {a:"POS", f:"Place of service", d:"Claim field (office, ASC, inpatient) that changes CPT/facility coding."},
+      {a:"PP", f:"Prompt processing (prefill)", d:"How fast the model reads a long note. The CAC bottleneck more often than decode."},
+      {a:"Practicode", f:"AAPC Practicode (CPC-A practicum)", d:"Case-practice product. Completing three modules (600 cases, ≥70%) counts as one year toward dropping CPC-A. Does not by itself equal two years."},
+      {a:"PRO", f:"NVIDIA RTX PRO line", d:"Workstation GPUs with ECC and clearer licensing for multi-user inference."},
+      {a:"PSU", f:"Power supply unit", d:"850–1000 W ATX 3.x Gold recommended depending on 3090 vs 4090."},
+      {a:"Q4", f:"4-bit GGUF quantization (family)", d:"Everyday local-LLM precision. Q4_K_M is the usual default."},
+      {a:"Q4_K_M", f:"GGUF 4-bit K-quant medium", d:"Balanced llama.cpp quant used throughout the hardware tables."},
+      {a:"QLoRA", f:"Quantized Low-Rank Adaptation", d:"LoRA on 4-bit base weights so you can fine-tune larger models on one GPU."},
+      {a:"QEMU", f:"Quick Emulator", d:"Linux virtualization stack; mentioned as a way to run a Windows VM if a separate thin client is not used."},
+      {a:"RAG", f:"Retrieval-augmented generation", d:"Fetch ICD/CPT/NCCI/LCD text and stuff it into the prompt so the model cites rules instead of guessing."},
+      {a:"RAM", f:"Random-access memory", d:"System memory. 64 GB preferred; 32 GB acceptable if DDR5 kits stay near $1,000."},
+      {a:"RDP", f:"Remote Desktop Protocol", d:"Windows remote-access option for the thin client."},
+      {a:"RDNA", f:"Radeon DNA architecture", d:"AMD GPU architecture family (RDNA 3 = 7900 XTX, RDNA 4 = RX 9000)."},
+      {a:"REST", f:"Representational State Transfer", d:"HTTP API style used by Vertex and local OpenAI-compatible servers."},
+      {a:"ROCm", f:"Radeon Open Compute", d:"AMD’s compute stack. Usable on Linux, still more friction than CUDA for this build."},
+      {a:"ROI", f:"Return on investment", d:"Used when comparing local hardware to API token spend."},
+      {a:"RoPE", f:"Rotary positional embeddings", d:"Position encoding inside most modern LLMs; related to long-context tricks like YaRN."},
+      {a:"RTX", f:"NVIDIA GeForce RTX", d:"Consumer GPU brand. 3090/4090/50-series cards discussed for the build."},
+      {a:"RX", f:"AMD Radeon RX", d:"Consumer AMD GPU brand (7900 XTX, 9070 XT)."},
+      {a:"SaaS", f:"Software as a service", d:"Product is a Cloud Run SaaS seat (IAP, us-east4, CPU). No GPU required. Workspace is the ops SaaS and needs its own BAA before PHI mail/docs."},
+      {a:"SDK", f:"Software development kit", d:"Vertex AI / Gemini client libraries used to launch SFT jobs."},
+      {a:"SFT", f:"Supervised fine-tuning", d:"Teaching a model from labeled input→output pairs. First Vertex training path recommended."},
+      {a:"SFF", f:"Small form factor", d:"Compact cases/cards. Not the priority for a hot 4090 workstation."},
+      {a:"SGLang", f:"SGLang serving framework", d:"Open inference engine appearing in NVIDIA vs AMD agent benchmarks."},
+      {a:"SKU", f:"Stock keeping unit", d:"A specific product/price variant (GPU model, Vertex machine type)."},
+      {a:"SLM", f:"Small language model", d:"On-device models (Phi Silica class) discussed in Copilot+ / GPU runtime notes."},
+      {a:"SM", f:"Streaming multiprocessor", d:"NVIDIA GPU compute block."},
+      {a:"SOC", f:"System and Organization Controls (also: system-on-chip)", d:"Compliance report type listed with HIPAA; also used for integrated chips such as GB10."},
+      {a:"SOP", f:"Standard operating procedure", d:"Coding/billing playbooks stored in Workspace, not in the model weights."},
+      {a:"SSD", f:"Solid-state drive", d:"NVMe storage for OS, GGUF files, and encrypted charts."},
+      {a:"SSH", f:"Secure Shell", d:"How you administer the Linux box from the thin client."},
+      {a:"SSL", f:"Secure Sockets Layer", d:"Legacy name; modern traffic uses TLS."},
+      {a:"SXM", f:"NVIDIA SXM module", d:"Board form factor for datacenter GPUs with NVLink, not a desktop card."},
+      {a:"T4", f:"NVIDIA Tesla T4", d:"Low-cost Vertex GPU suitable only for small adapters or classifiers."},
+      {a:"TCO", f:"Total cost of ownership", d:"Hardware + power + cloud tokens over years, not just sticker price."},
+      {a:"TDP", f:"Thermal design power", d:"Board power target. 3090 ~350 W, 4090 ~450 W, 5090 ~575 W."},
+      {a:"TFLOPS", f:"Teraflops", d:"10¹² FLOPS. Useful for marketing tables, weak predictor of CAC quality."},
+      {a:"TG", f:"Token generation (decode)", d:"Tokens emitted after prefill. Should stay above reading speed for interactive coding."},
+      {a:"TLS", f:"Transport Layer Security", d:"Encryption in transit for Tailscale, HTTPS, and GCP APIs."},
+      {a:"tok/s", f:"Tokens per second", d:"Headline local-LLM speed metric. Prefill and decode should be quoted separately."},
+      {a:"TOPS", f:"Tera operations per second", d:"NPU marketing unit for Copilot+ PCs. Not how we sized this workstation."},
+      {a:"TP", f:"Tensor parallelism", d:"Splitting one model across multiple GPUs. Relevant to dual-3090 or Vertex multi-GPU jobs."},
+      {a:"TPM", f:"Trusted Platform Module", d:"Hardware root of trust; pairs with disk encryption on Windows thin clients."},
+      {a:"TPU", f:"Tensor Processing Unit", d:"Google’s custom trainer/inferencer. TPU 8t is training-oriented; TPU 8i is inference-oriented."},
+      {a:"TRL", f:"Transformer Reinforcement Learning (Hugging Face library)", d:"Fine-tuning library used in Gemma-on-Vertex examples."},
+      {a:"TTFT", f:"Time to first token", d:"Latency from request to first generated token. Dominated by prefill on long notes."},
+      {a:"UDIMM", f:"Unbuffered DIMM", d:"Standard desktop RAM module type."},
+      {a:"UEFI", f:"Unified Extensible Firmware Interface", d:"Modern firmware replacing classic BIOS screens."},
+      {a:"UPS", f:"Uninterruptible power supply", d:"Recommended leftover-budget item so a coding run survives a brief outage."},
+      {a:"URI", f:"Uniform resource identifier", d:"gs:// path to a Vertex dataset or output directory."},
+      {a:"USB", f:"Universal Serial Bus", d:"Peripherals; USB-C appears on Spark-class boxes."},
+      {a:"UTC", f:"Coordinated Universal Time", d:"Reference clock used by some price trackers cited in the build advice."},
+      {a:"vLLM", f:"vLLM inference engine", d:"High-throughput GPU server with PagedAttention. Optional later API layer on the tower or on Vertex."},
+      {a:"VM", f:"Virtual machine", d:"Possible Windows guest on the Linux host, or a Vertex training machine."},
+      {a:"VPC", f:"Virtual Private Cloud", d:"GCP network boundary for locking down training jobs and endpoints."},
+      {a:"VRAM", f:"Video random-access memory", d:"GPU memory. The constraint that decides which coding model and context length you can run."},
+      {a:"VRM", f:"Voltage regulator module", d:"Motherboard power delivery for the CPU. Choose a decent X870 board, not the cheapest B650."},
+      {a:"VS Code", f:"Visual Studio Code", d:"Likely editor for the agent, with local or cloud model backends."},
+      {a:"WSI", f:"Whole-slide image", d:"Pathology scan type from medical-imaging GPU guides — not required for coding/billing v1."},
+      {a:"x86", f:"x86-64 architecture", d:"ISA of the Ryzen desktop CPU in the recommended build."},
+      {a:"X12", f:"ASC X12 EDI", d:"Claim/remittance electronic format family (837/835) in billing workflows."},
+      {a:"XDNA", f:"AMD XDNA NPU architecture", d:"On-die NPU in Ryzen AI chips; not a substitute for a 24 GB dGPU."},
+      {a:"YaRN", f:"Yet another RoPE extensioN", d:"Method to stretch a model’s context window beyond the trained length."},
+      {a:"AI Studio", f:"Google AI Studio", d:"Prompt playground. No BAA. Synthetic or de-identified text only. Production Gemini for PHI goes through Vertex under the Cloud BAA."},
+      {a:"Airlock", f:"Genesis egress airlock", d:"Week 2 component in src/airlock.py: schema-bounded egress envelope, FastAPI POST /v1/egress/inspect. SSN / YYYY-MM-DD regex retired (synthetic demo). IAP sits in front, not in-process."},
+      {a:"BA", f:"Business Associate", d:"A person or org that handles PHI for a Covered Entity. Verisource Labs is typically the BA to a clinic; Google and xAI are subcontractors of that BA once their BAAs are signed."},
+      {a:"BA stack", f:"Business-associate contract stack", d:"The four written agreements before real charts may sit on Cloud Run: clinic↔Verisource, Verisource↔Google Cloud Covered Products, Verisource↔Workspace if used, Verisource↔xAI (+ZDR). A signed stack is necessary and not sufficient; IAP, VPC-SC, envelope, and log hygiene still sit on Verisource."},
+      {a:"Breach Notification Rule", f:"HIPAA Breach Notification Rule (45 CFR 164.400–414)", d:"Requires notice after unsecured PHI is compromised. Google’s Cloud BAA includes vendor notification duties; you still own the customer-facing notice if you are the BA."},
+      {a:"CDPA", f:"Cloud Data Processing Addendum", d:"Google’s general privacy/processor addendum (Workspace and Cloud). Not a HIPAA BAA. Accept CDPA for GDPR-style duties; accept the separate HIPAA amendment for PHI."},
+      {a:"CE", f:"Covered Entity", d:"A health plan, clearinghouse, or health-care provider who bills electronically. The clinic is usually the CE. Google’s Workspace BAA flow asks the super admin to confirm CE or BA status."},
+      {a:"Cloud Run", f:"Google Cloud Run", d:"Serverless host for Mode A airlock. Listed on Google’s HIPAA Covered Products page. Pair with IAP. No parallel app/ gateway."},
+      {a:"Covered Products", f:"Google Cloud BAA Covered Products", d:"The live list at cloud.google.com/security/compliance/hipaa. PHI may only touch products on that list, generally available. Cloud Run, Cloud SQL, BigQuery, Cloud Storage, Cloud Logging, Vertex / Gemini Enterprise Agent Platform are on the list as of the 31 Aug 2026 check; re-verify before go-live."},
+      {a:"Covered Services", f:"BAA Covered Services", d:"Contract term in Google’s Cloud BAA: only named Covered Products. PHI processed outside those services (local disk, thin-client Downloads, AI Studio) is not covered by that BAA."},
+      {a:"Critic", f:"Grok clinical critic", d:"Locked role: Grok API returns GrokClinicalArbitrationResponse. Not Vertex. Week 3 waits until the owner asks. Needs an xAI BAA before any real-chart derivative leaves the airlock."},
+      {a:"DFT", f:"HL7 DFT (Detail Financial Transaction)", d:"Charge-interface message some EHRs use to post codes. Explicitly out of MVP — no DFT/FHIR writeback."},
+      {a:"DPA", f:"Data Processing Addendum", d:"Generic processor contract (xAI and Google both publish one). A DPA is not a HIPAA BAA. xAI’s DPA is automatic on Enterprise Terms; the BAA is a separate questionnaire."},
+      {a:"Envelope", f:"Egress envelope", d:"Schema-bounded JSON the airlock will allow onto the wire. No raw clinical_text dump, no durable encounter_id. Synthetic SSN / ISO dates are allowed."},
+      {a:"Excludes1", f:"ICD-10-CM Excludes1 note", d:"Locked triage rule: drop unsupported Excludes1 codes and continue. Empty remainder after drops = LOCAL_HARD_BLOCK. Do not invent entropy routing."},
+      {a:"Expert Determination", f:"HIPAA de-identification — expert determination", d:"Statistician/expert method to de-identify notes before GCS/Vertex. Date-shifting alone is not Safe Harbor and is not treated as de-identification in this project."},
+      {a:"Genesis", f:"Genesis airlock", d:"Name of the Week 2 egress inspector. One airlock, one engine: src/ plus specs/ tests. Do not add a second gateway."},
+      {a:"Grok", f:"xAI Grok model / API", d:"Locked production critic. Consumer grok.com chats and this Project UI are not a BAA surface. Enterprise API: no training on inputs by default, 30-day abuse log unless ZDR is enabled, BAA only after the questionnaire."},
+      {a:"HITL", f:"Human-in-the-loop", d:"Coder accepts or overrides model codes. Persistence is local or Cloud SQL/BigQuery. HITL UI is out of scope until asked."},
+      {a:"IAP", f:"Identity-Aware Proxy", d:"Google Cloud identity in front of Cloud Run. Locked: IAP is the front door, not an in-app check. Confirm IAP against the current Covered Products list when PHI is in play."},
+      {a:"Included Functionality", f:"Workspace HIPAA Included Functionality", d:"Subset of Workspace core services where PHI is allowed after the Workspace BAA: Gmail, Drive/Docs/Sheets/Slides/Forms, Calendar, Chat, Meet, Vault (if licensed), Gemini in Workspace, and others on Google’s current list. Marketplace add-ons and Gemini in Chrome are out."},
+      {a:"Judge", f:"Vertex agree/disagree/insufficient judge", d:"Locked Vertex role on the same REQ_ as the Grok critic. Vertex is not the production critic. Requires the Cloud BAA if the packet is PHI."},
+      {a:"LOCAL_HARD_BLOCK", f:"Local hard block (triage)", d:"Triage outcome when Indicator 0, empty remainder after Excludes1 drops, or an unresolvable illegal pair remains. Do not send that encounter to the critic."},
+      {a:"Mode A", f:"Cloud Run SaaS mode", d:"Subscriber seat on Cloud Run + IAP in us-east4. CPU only. Startup Demo: synthetic fixtures. Production after four BAAs: same image family, real charts, still PHI. No GPU."},
+      {a:"Mode B", f:"Retired local-GPU path", d:"Retired 8 Sep 2026. Local RTX 5070 Ti / used 4090 / rented GPU lab add no value on Cloud Run CPU + Grok API critic + Vertex judge. Do not restore this SKU."},
+      {a:"OU", f:"Organizational unit (Workspace)", d:"Admin-console folder for users. After the Workspace BAA, put PHI handlers in a dedicated OU and disable non-covered additional Google services for that OU."},
+      {a:"Privacy Rule", f:"HIPAA Privacy Rule (45 CFR 160 and 164 Subparts A & E)", d:"Limits use and disclosure of PHI. Minimum necessary applies to critic/judge packets — send the envelope, not the chart."},
+      {a:"PTP", f:"NCCI procedure-to-procedure edit", d:"Codebook table loaded in Week 1 (ncci_ptp_edits). Triage uses it locally; do not make the LLM memorize PTP pairs."},
+      {a:"REQ_", f:"Request UUID prefix", d:"Cloud payload ID. Use REQ_ UUIDs. Do not store durable encounter IDs in cloud packets."},
+      {a:"Safe Harbor", f:"HIPAA Safe Harbor de-identification", d:"Remove the 18 identifier classes and have no actual knowledge the rest can identify. Date-shifting is Expert Determination, not Safe Harbor. Hosting on Cloud Run does not make a chart Safe Harbor. All-Cloud-Run PHI SaaS is a BAA posture, not a Safe Harbor posture."},
+      {a:"Security Rule", f:"HIPAA Security Rule (45 CFR 160 and 164 Subparts A & C)", d:"Administrative, physical, and technical safeguards for ePHI. Google implements them on Covered Services; you still configure IAM, logging, encryption, and the airlock."},
+      {a:"SOC 2", f:"System and Organization Controls 2", d:"xAI states SOC 2 Type 2. Google publishes SOC reports on its compliance site. A SOC report is evidence, not a BAA."},
+      {a:"Subcontractor", f:"HIPAA business-associate subcontractor", d:"Google or xAI when Verisource (the BA) sends them PHI. Each subcontractor needs its own BAA with Verisource. The clinic BAA does not automatically cover them."},
+      {a:"us-east4", f:"Google Cloud region us-east4 (Ashburn / N. Virginia)", d:"Locked Mode A region as of 7 Sep 2026. Not us-central1. Not us-east5 (Columbus). Keep PHI-capable resources in a listed region after the Cloud BAA."},
+      {a:"VPC-SC", f:"VPC Service Controls", d:"GCP perimeter around the airlock project so PHI cannot egress to an uncovered API. Itself listed among HIPAA-related Cloud products; still customer-configured."},
+      {a:"Workspace", f:"Google Workspace Business Plus", d:"Ops tenant (mail, Drive, Vault, Gemini in Workspace). Super admin accepts the HIPAA Business Associate Amendment at Account → Account settings → Legal and compliance. Electronic accept is the written BAA."},
+      {a:"xAI", f:"xAI LLC", d:"Vendor behind Grok. Separate company from Google and from X Corp. HIPAA: complete the BAA questionnaire at x.ai/legal/baa; do not send PHI while it is pending."},
+      {a:"ZDR", f:"Zero Data Retention", d:"xAI enterprise option so API prompts/outputs are not kept after the response (default is a 30-day abuse-audit window). Ask for ZDR in the same thread as the xAI BAA. Not the Google Cloud default — GCP retention is a project setting."},
+      {a:"5070 Ti", f:"GeForce RTX 5070 Ti 16 GB", d:"Locked Mode B SKU in specs/CAC_COPILOT_SYSTEM_STATE.md. Blackwell GB203, 16 GB GDDR7, ~300 W, 12V-2x6. Faster 8B decode and the CUDA/Unsloth path. Not purchased as of 5 Sep 2026. A used 7900 XTX is a research option, not a rewrite of this SKU."},
+      {a:"Super admin", f:"Google Workspace super administrator", d:"Only this role can review and accept the Workspace HIPAA BAA. Non-admins and the legacy free edition cannot."},
+      {a:"7900 XT", f:"Radeon RX 7900 XT 20 GB", d:"RDNA 3 Navi 31 cut-down (84 CU, 20 GB GDDR6, ~315 W, 2×8-pin). Dev-seat research card for llama.cpp HIP on the existing Z690-A tower. Pulse ~313 mm fits the measured ~330 mm bay. Not the locked Mode B SKU."},
+      {a:"7900 XTX", f:"Radeon RX 7900 XTX 24 GB", d:"Full Navi 31 (96 CU, 24 GB GDDR6, ~355 W). Used band ~$850–930 on 5 Sep 2026. Extra 4 GB fits 14B–32B Q4 and less-cramped QLoRA; ROCm backward still weaker than CUDA. Pulse XTX is 313 mm but wants 3×8-pin — this 850 W unit only has two. Research option, not a Mode B rewrite."},
+      {a:"Alder Lake", f:"Intel 12th-generation Core (Alder Lake)", d:"LGA1700 family of the current i5-12500. 16× PCIe 5.0 + 4× PCIe 4.0 from the CPU, DMI 4.0 ×8 to Z690. Same lane map as 13th/14th on this board."},
+      {a:"Backplate", f:"GPU metal backplate", d:"Stiffens the PCB and soaks VRAM/VRM heat. Pulse and Hellhound 7900 XT plates are mostly solid with a tail cutout so the last fan can blow through. Do not pack cables on that tail; a fan aimed at the solid middle does nothing."},
+      {a:"BE200", f:"Intel Wi-Fi 7 BE200", d:"M.2 2230 Key-E radio + BT. Prime Z690-A has no Key-E socket, so it sits on a chipset PCIe ×1 adapter. One chipset lane; does not steal the GPU ×16 or M.2_1. Linux: iwlwifi. Wired 2.5 GbE stays the PHI-box NIC."},
+      {a:"Blackwell", f:"NVIDIA Blackwell architecture", d:"RTX 50-series (GB20x). 5070 Ti is GB203 with 16 GB GDDR7, FP8/FP4 tensor paths. Locked Mode B generation."},
+      {a:"Blower", f:"Blower-style GPU cooler", d:"Single fan that exhausts out the I/O bracket. Needed only when the GPU bay is short or the front panel is closed. This mid-tower has ~330 mm and front intake, so the $650 open-air Pulse is the default — not the brown-box Sapphire blower."},
+      {a:"Developer seat", f:"Local developer / training workstation", d:"This Z690-A tower: compile, pytest, data prep, HIP bring-up, optional LoRA. Not a Mode A subscriber seat (Cloud Run, no local GPU) and not the locked Mode B production SKU. Host cores and RAM matter here; 8B generate still lives on the dGPU."},
+      {a:"DMI", f:"Direct Media Interface", d:"Intel CPU↔chipset link. Alder Lake + Z690 is DMI 4.0 ×8. Chipset NVMe, 2.5 GbE, BE200, and USB all share it. M.2_1 and the GPU ×16 do not."},
+      {a:"Dual-tower", f:"Dual-tower air cooler", d:"Two fin stacks (Peerless Assassin 120 / Phantom Spirit 120). Fans pull toward the rear I/O so the rear case exhaust lines up. Chosen to replace the squealing stock 12500 cooler; covers 13500 and 14700."},
+      {a:"E-core", f:"Efficiency core (Intel)", d:"Gracemont/Crestmont cores for background host work (Presidio, SQLite, airlock, pytest). 12500 has zero; 13500/14500 add eight; 14700 adds twelve. The extra E-cores are the developer-seat reason to leave the 12500."},
+      {a:"GB203", f:"NVIDIA GB203 GPU die", d:"Blackwell die in the RTX 5070 Ti / 5080 family. 5070 Ti enables 70 of 84 SMs, 16 GB GDDR7."},
+      {a:"gfx1100", f:"AMD RDNA 3 GFXIP gfx1100", d:"LLVM/ROCm target for Navi 31 (7900 XT and XTX). llama.cpp HIP and Ollama device pick use this name. Same target for both cards."},
+      {a:"Hellhound", f:"PowerColor Hellhound", d:"Open-air 7900 XT/XTX AIB. XT ~320 mm, 2×8-pin, backplate tail cutout. Fits this bay with the Pulse."},
+      {a:"i5-12500", f:"Intel Core i5-12500", d:"Current CPU: 6P+0E / 12T, 65 W, UHD 770, LGA1700. Enough host for llama.cpp; display stays on the iGPU so the Radeon can be compute-only. Lane map: 1×16 GPU + M.2_1 ×4."},
+      {a:"i5-13500", f:"Intel Core i5-13500", d:"Best-value LGA1700 iGPU upgrade for this box: 6P+8E / 20T, UHD 770, 65 W. Used ~$159 on 5 Sep 2026. Same cooler envelope as the 12500. Subscriber-seat default; developer seat may skip to 14700."},
+      {a:"i7-14700", f:"Intel Core i7-14700", d:"14th-gen non-K: 8P+12E / 28T, UHD 770, 65 W / 219 W turbo. Used ~$270. Developer-seat pick when compile + Presidio + generate run together. Cap ~$250 used; no F/KF, no 14700K. Flash Z690-A to 14th-gen microcode first."},
+      {a:"Key E", f:"M.2 Key E (2230)", d:"Wi-Fi/BT card socket. Distinct from Key M NVMe. Z690-A has no Key E; do not burn an NVMe slot on a BE200 adapter."},
+      {a:"LGA1700", f:"Intel LGA 1700 socket", d:"12th/13th/14th-gen desktop socket on the Prime Z690-A. BIOS update required before a 13th/14th swap."},
+      {a:"M.2_1", f:"CPU-attached M.2 slot 1", d:"Prime Z690-A slot under the sink by the socket: PCIe 4.0 ×4 from the CPU. OS + GGUF drive lives here. Not shared with the GPU ×16 or with SATA on this board."},
+      {a:"Navi 31", f:"AMD Navi 31 (RDNA 3)", d:"GCD+MCD chip in 7900 XT (cut-down) and 7900 XTX (full). Same gfx1100 software target."},
+      {a:"Open-air", f:"Open-air / axial GPU cooler", d:"Three fans that dump most heat into the case, plus some out the I/O and tail cutout. Default for this mesh-front mid-tower. Opposite of a blower."},
+      {a:"P-core", f:"Performance core (Intel)", d:"Golden Cove / Raptor Cove cores for tokenize, compile, pydantic. 12500/13500 have six; 14700 has eight. Single-thread gap 13500→14700 is only ~12–14%."},
+      {a:"PA120", f:"Thermalright Peerless Assassin 120", d:"Cheap dual-tower LGA1700 air cooler (or Phantom Spirit 120). Replaces the squealing stock fan. Wide mid-tower clearance is enough."},
+      {a:"PL1", f:"Intel power limit 1 (base)", d:"Sustained package cap. 12500/13500/14700 non-K are all 65 W PL1. PL2 (turbo) is 154 W on 13500 and 219 W on 14700 — PS120 covers both."},
+      {a:"Pulse", f:"Sapphire Pulse", d:"Value open-air AIB. 7900 XT Pulse (11323-02-20G) is 313 mm, 2.7 slot, 2×8-pin — the locked card pick for this bay. XTX Pulse is the same length but 3×8-pin / 370 W; skip unless the PSU grows a third 8-pin."},
+      {a:"Raptor Lake", f:"Intel 13th/14th-generation Core", d:"Refresh of Alder Lake on LGA1700. 13500 is 13th; 14700 is 14th. Same 16+4 CPU PCIe map. 14th is clocks + (on i7) extra E-cores, not a new arch."},
+      {a:"SafeSlot", f:"ASUS reinforced PCIe slot", d:"Metal-braced top PCIEX16(G5) on the Z690-A. Only slot for the 7900 XT/XTX. The lower “×16” is chipset ×4 Gen3 — do not use it for the GPU."},
+      {a:"Subscriber seat", f:"Mode A certified-coder SaaS seat", d:"Cloud Run + IAP, synthetic packets, no local GPU required. Distinct from the developer seat on this tower and from future Mode B PHI-perimeter inference."},
+      {a:"TBP", f:"Total board power", d:"GPU wall power. 7900 XT ~315 W, XTX ~355 W, 5070 Ti ~300 W. Size PSU and case airflow to TBP, not TDP marketing."},
+      {a:"UHD 770", f:"Intel UHD Graphics 770", d:"32-EU iGPU on non-F 12th–14th-gen i5/i7. Drive the display from the Z690-A HDMI/DP; pin HIP/Ollama to the Radeon. F/KF SKUs drop this — do not buy them."},
+      {a:"XMP", f:"Intel Extreme Memory Profile", d:"Enable on the 2×16 GB DDR5-5200 kit. Z690-A JEDEC floor is 4800; 5200 is one XMP step. Not EXPO (that is AMD)."},
+      {a:"Z690-A", f:"ASUS Prime Z690-A", d:"Existing ATX DDR5 board: 305×244 mm, PCIe 5.0 ×16 SafeSlot, M.2_1 from CPU, three chipset M.2 with no SATA sharing, Intel 2.5 GbE, no Key-E Wi-Fi. Keep it; do not buy AM5 for the first HIP experiment."},
+      {a:"125B-A6B", f:"125 billion total / 6 billion active MoE", d:"Qwen3.8-Flash-Next compute shape: 125B stored experts, ~6B fire per token (512 experts, 10 routed). The headline 177B adds the 51B PLE table + MTP head. Does not change the locked Mode B resident 8B Q4/Q8."},
+      {a:"-ctk", f:"llama.cpp KV-cache type (K and V)", d:"-ctk / -ctv set K and V quant. On HIP keep them symmetric (q8_0/q8_0 or q4_0/q4_0) or fused flash-attention silently falls off the fast path."},
+      {a:"-ncmoe", f:"n-cpu-moe (CPU expert offload)", d:"llama.cpp flag: first N MoE layers compute on the host. HIP substitute for the CUDA-only expert LRU. Tune until VRAM has 1–2 GB free. Cold experts run at DDR5 bandwidth (~90 GB/s), not GDDR."},
+      {a:"-ngl", f:"n-gpu-layers", d:"How many transformer layers go to the dGPU. Flash-Next still uses -ngl 99 plus -ncmoe / -ot so the PLE table and spare experts stay off VRAM."},
+      {a:"-ot", f:"override-tensor", d:"Per-tensor placement. Flash-Next must keep per_layer_token_embd on CPU. Putting the PLE table on the GPU has been measured at ~50× slower decode."},
+      {a:"5600X", f:"AMD Ryzen 5 5600X", d:"6c/12t Zen 3 CPU on the Codacus 3060 Flash-Next video. Lesson carried over: llama.cpp threads = physical cores (6 there; 8 P-cores on a 14700K), not SMT count."},
+      {a:"7900 GRE", f:"Radeon RX 7900 GRE 16 GB", d:"RDNA 3 Navi 31, 16 GB / ~576 GB/s. Not the 20 GB XT. 16 GB is the GRE/9070-class footprint, not the XT."},
+      {a:"9050", f:"Radeon RX 9050", d:"Entry RDNA 4 (Navi 44), 8 GB or 4 GB. Too little VRAM to beat the 3060 Flash-Next rig. Do not treat as a GPU-lab card."},
+      {a:"9060 XT", f:"Radeon RX 9060 XT", d:"RDNA 4 Navi 44, 8 GB or 16 GB, 128-bit, ~322 GB/s. 16 GB capacity helps; bandwidth is at or below a 3060. Not listed as a config that beats the CUDA video on Flash-Next decode."},
+      {a:"9070", f:"Radeon RX 9070 16 GB", d:"RDNA 4 Navi 48, 56 CU, 16 GB GDDR6, 256-bit, ~640 GB/s, ~220 W, gfx1201. Same memory subsystem as the XT. Beats the 3060 Flash-Next rig only with HIP + GPU TOP_K + 64 GB DDR5."},
+      {a:"9070 GRE", f:"Radeon RX 9070 GRE 12 GB", d:"Cut-down Navi 48: 12 GB, 192-bit, ~432 GB/s. Same VRAM as the 3060 video. Not a clean beat without CUDA expert cache. Do not confuse with the 16 GB 9070 / 9070 XT."},
+      {a:"9070 XT", f:"Radeon RX 9070 XT 16 GB", d:"RDNA 4 Navi 48 full die, 64 CU, 16 GB GDDR6, ~644 GB/s, ~304 W, gfx1201. Measured Flash-Next host on this card (HIP). Dev-seat research only. Not the locked Mode B SKU (5070 Ti)."},
+      {a:"Above 4G", f:"Above 4G decoding", d:"UEFI switch required with ReBAR so the CPU can address the full 16–20 GB BAR. Enable both on Z690-A before HIP mmap / expert spill."},
+      {a:"Codacus", f:"Codacus (local-AI channel)", d:"7 Sep 2026 video: Qwen3.8-Flash-Next UD-IQ3_XXS on a used RTX 3060 12 GB + 5600X + 64 GB DDR4 at 24.4 tok/s decode. Baseline for the AMD comparison. Technique note, not a SKU change."},
+      {a:"DDR4", f:"Double Data Rate 4 SDRAM", d:"Host RAM on the Codacus 3060 box (64 GB). Dual-channel DDR4-3200 is ~50 GB/s — the prefill cliff below ~40 GB resident. Z690-A / 14700K box is DDR5; do not size that kit from the DDR4 video."},
+      {a:"Engram", f:"Qwen n-gram / Engram embedding table", d:"Another name for the 51B PLE lookup (bigram/trigram rows at layer 2). Sparse, deterministic address. mmap on host or NVMe; never pin in VRAM."},
+      {a:"expert cache", f:"MoE expert hot cache (VRAM LRU)", d:"Keep frequently routed experts in VRAM; cold ones stay in host RAM. Codacus / GenerelSchwerz / -ehs paths are CUDA-only as of Sep 2026. HIP uses -ncmoe layer offload instead. Do not expect the video’s +47% bump on Radeon."},
+      {a:"FA", f:"Flash Attention", d:"llama.cpp -fa on. Required on RDNA 3/4 HIP or prefill stays in the hundreds of tok/s. Pair with symmetric -ctk/-ctv on HIP."},
+      {a:"GDN", f:"Gated DeltaNet", d:"Linear / SSM-style layers on 36 of 48 Qwen3.8-Flash-Next blocks. The other 12 are sparse full attention (QSA). Graph-shape work, not a dense-transformer drop-in."},
+      {a:"gfx1151", f:"AMD RDNA 3.5 GFXIP gfx1151", d:"Strix Halo / Ryzen AI Max+ iGPU target. Flash-Next + MTP stacks exist here on 128 GB unified memory. Not the Z690-A discrete-card path."},
+      {a:"gfx1201", f:"AMD RDNA 4 GFXIP gfx1201", d:"ROCm/LLVM target for RX 9070 / 9070 XT (Navi 48). Build llama.cpp -DAMDGPU_TARGETS=gfx1201. Lemonade gfx120X nightlies track this."},
+      {a:"hipCUB", f:"HIP CUB (rocPRIM radix)", d:"Enables GPU TOP_K / ARGSORT on HIP. Without it, Flash-Next QSA falls back to CPU past 1024 context columns and decode collapses (~20 → ~6 tok/s). Build -DGGML_CUDA_USE_CUB=ON on ROCm 10.1."},
+      {a:"Infinity Cache", f:"AMD on-die memory cache", d:"Last-level cache on Radeon (80 MB on 7900 XT, 64 MB on 9070 XT). Helps gaming effective bandwidth; does not make an 82 GB GGUF fit in 16 GB."},
+      {a:"i7-14700K", f:"Intel Core i7-14700K", d:"8P+12E / 28T, 125 W / 253 W turbo, LGA1700, official DDR5-5600. Reviewed 7 Sep 2026 with Z690-A + 64 GB for Flash-Next CPU-MoE. Use -t 8 (P-cores only). Distinct from the earlier non-K 14700 pick; K is not a purchase lock."},
+      {a:"lemonade", f:"lemonade-sdk llama.cpp-rocm builds", d:"Prebuilt llama.cpp + ROCm nightlies (gfx110X / gfx120X). 7 Sep 2026 b1326 ships ROCm 10.1.0a. Prefer this or bare-metal HIP over WSL2 dGPU."},
+      {a:"llama.cpp", f:"ggerganov llama.cpp", d:"GGUF runtime for local experiments. qwen4exp landed 27 Aug 2026 (PR 27742). Aug 30+ master loads Flash-Next; HIP still needs hipCUB + FA to beat the 3060 video. Not the Mode A critic (that is Grok API)."},
+      {a:"mmap", f:"memory-map file I/O", d:"llama.cpp leaves the GGUF on NVMe and faults pages in. How the 51B PLE table stays off the resident set. --load-mode mmap. Do not copy the whole 82 GB file into RAM on a 64 GB box."},
+      {a:"Navi 44", f:"AMD Navi 44 (RDNA 4)", d:"Smaller RDNA 4 die in 9060 XT / 9060 / 9050. 128-bit memory. Not the 9070-class lab card."},
+      {a:"Navi 48", f:"AMD Navi 48 (RDNA 4)", d:"Die in 9070 XT / 9070 / 9070 GRE. gfx1201. XT and non-XT are 16 GB / 256-bit; GRE is 12 GB / 192-bit."},
+      {a:"n-gram table", f:"51B n-gram / PLE lookup", d:"~20 million bigram/trigram rows. 16 rows gathered per token (~2–3 KB). Qwen stores it for off-accelerator access. Same object as PLE / Engram / per_layer_token_embd."},
+      {a:"per_layer_token_embd", f:"GGUF tensor for the PLE table", d:"The n-gram embedding tensor name. Always -ot per_layer_token_embd=CPU. HIP reports of -ot …=ROCm0 include memory-access faults on APUs."},
+      {a:"PLE", f:"Per-layer embedding / n-gram phrase book", d:"51B-parameter lookup in Qwen3.8-Flash-Next. Not neural weights. Lives in host mmap or SSD. This is why a 177B-stored model can run with 12–16 GB VRAM — the table is not in GDDR."},
+      {a:"QSA", f:"Qwen Sparse Attention", d:"Sparse full-attention used on 12 of 48 Flash-Next layers. Indexer runs TOP_K over context 12× per token. The HIP 1024-column cliff."},
+      {a:"qwen4exp", f:"llama.cpp architecture id for Flash-Next", d:"GGUF / model_type name (Qwen4Exp). PR 27742 merged 27 Aug 2026. Need this build or later; b-numbers before that cannot load the checkpoint."},
+      {a:"Qwen3.8-Flash-Next", f:"Qwen 3.8 Flash Next (Qwen4 preview)", d:"125B-A6B MoE + 51B PLE + ~4B MTP. Unsloth UD-IQ3_XXS ~82 GB. GPU-lab technique candidate after Startups; synthetic outpatient only. Not the Mode B 8B resident and not the Grok critic."},
+      {a:"ReBAR", f:"Resizable BAR (Smart Access Memory)", d:"Lets the CPU see the full VRAM aperture. Enable with Above 4G on Z690-A. Needed for HIP mmap and any expert spill over PCIe."},
+      {a:"RDNA 4", f:"Radeon DNA 4 (RX 9000)", d:"Navi 44/48, gfx1200/gfx1201. 9070 XT is the SKU that beats the 3060 Flash-Next video when HIP TOP_K works. Official in ROCm 7.2+ / 10.1 nightlies."},
+      {a:"ROCm 10.1", f:"ROCm 10.1 nightly", d:"Current AMD compute stream as of Sep 2026 (TheRock multi-arch). Pair with llama.cpp Aug 30+ and gfx1100 or gfx1201. Nightlies can move; pin a date if a recipe must reproduce."},
+      {a:"RTX 3060", f:"GeForce RTX 3060 12 GB", d:"Ampere GA106, 12 GB GDDR6, ~360 GB/s, ~12.7 TFLOPS. Codacus CUDA baseline for Flash-Next (24.4 tok/s decode with expert cache). Comparison anchor only — not a purchase and not Mode B."},
+      {a:"Strix Halo", f:"Ryzen AI Max+ / Radeon 8060S", d:"gfx1151 APU with up to 128 GB unified memory. Best-published Flash-Next + MTP HIP numbers (17→47 tok/s) live here. Unified memory, not a discrete 16 GB card."},
+      {a:"TheRock", f:"AMD TheRock multi-arch ROCm index", d:"Nightly/stable wheels and tarballs (nightly.repo.amd.com). ROCm 10.1 nightlies used by lemonade and HIP llama.cpp builds."},
+      {a:"TOP_K", f:"Top-K indexer op", d:"Flash-Next QSA uses GPU TOP_K. Stock HIP without hipCUB CPU-falls-back past 1024 columns — the decode cliff. First check after an Aug 30+ HIP build."},
+      {a:"UD-IQ3_XXS", f:"Unsloth Dynamic IQ3 XXS GGUF", d:"~82 GB Flash-Next quant in the Codacus video. ~85% top-1 vs denser quants. 3-bit passed visible tests and failed a hidden float-rounding spec — veto for anything that emits codes. Lab only."},
+      {a:"UD-Q4_K_XL", f:"Unsloth Dynamic Q4_K XL GGUF", d:"~111 GB Flash-Next quant. Better recovery than IQ3_XXS. Still too big for 16 GB without -ncmoe. Prefer this over 3-bit if a post-Startups lab recipe needs quality."},
+      {a:"Unsloth", f:"Unsloth GGUF publisher", d:"Source of Qwen3.8-Flash-Next-GGUF and the qwen4exp llama.cpp PR. UD- prefix = Unsloth Dynamic mixed quants. Weights only; not a runtime."},
+      {a:"LRU", f:"Least Recently Used", d:"Cache eviction rule: when a slot is full, drop the entry that has gone the longest without a hit. The MoE expert hot cache is a VRAM LRU of routed expert slabs (CUDA-only in the forks cited 7 Sep 2026). HIP still uses -ncmoe, not LRU."},
+      {a:"LFU", f:"Least Frequently Used", d:"Evict the entry with the fewest hits, not the stalest. Some expert-cache builds mix frequency aging with LRU as the tie-break. Not the default llama.cpp HIP path."},
+      {a:"FIFO", f:"First In, First Out", d:"Evict the oldest arrival regardless of recency. Not how the expert hot cache works; listed so it is not confused with LRU."},
+      {a:"MRU", f:"Most Recently Used", d:"Evict what just ran. Opposite of LRU. Rare for expert caches; do not set this on a 16 GB card."},
+      {a:"BAR", f:"Base Address Register", d:"PCIe window the CPU uses to see GPU memory. ReBAR / Above 4G enlarge that window to the full 16–20 GB. Distinct from LRU."},
+      {a:"SAM", f:"Smart Access Memory", d:"AMD name for Resizable BAR. Same UEFI pair as ReBAR + Above 4G on the Z690-A."},
+      {a:"SMT", f:"Simultaneous Multithreading", d:"Extra logical threads per core (Intel HT, AMD SMT). The 3060 video and the 14700K note: llama.cpp -t should be physical P-cores / real cores, not SMT count (12 on a 5600X, 28 on a 14700K)."},
+      {a:"WSL", f:"Windows Subsystem for Linux", d:"This project’s dev tree is WSL2 Ubuntu at ~/projects/cac-copilot. Fine for uv/pytest. Weak path for HIP on a discrete Radeon — prefer bare-metal or lemonade Windows builds for GPU lab work."},
+      {a:"WSL2", f:"Windows Subsystem for Linux 2", d:"Current WSL generation on the Windows9 box (Ubuntu 26.04 resolute). Same rule as WSL: engine tests yes; ROCm dGPU no."},
+      {a:"FFN", f:"Feed-forward network", d:"The expert MLP (gate / up / down) that fires for a routed token. That is what -ncmoe or the CUDA expert LRU is moving, not the PLE table."},
+      {a:"GLU", f:"Gated Linear Unit", d:"Gating used inside MoE expert FFNs. RDNA fused-MoE patches mention gate+up+GLU MMQ. Implementation detail, not a SKU."},
+      {a:"SSM", f:"State-space model", d:"Linear-time sequence layer. Gated DeltaNet on 36 of 48 Flash-Next layers is the SSM half; QSA is the sparse-attention half."},
+      {a:"WMMA", f:"Wave Matrix Multiply-Accumulate", d:"RDNA matrix cores used by HIP flash-attention / MMQ. rocWMMA FA is the AMD path; graphs + rocWMMA have crashed on some RDNA 4 prefills — GGML_CUDA_DISABLE_GRAPHS=1 is the workaround."},
+      {a:"MMQ", f:"Matrix-multiply quant kernel", d:"llama.cpp GPU kernel for quantized matmul. HIP flags such as GGML_CUDA_FORCE_MMQ and fused-MoE-MMQ refer to this, not to a model name."},
+      {a:"MMVQ", f:"Matrix-multiply vector quant kernel", d:"Decode-side quantized GEMV in llama.cpp. Short-K item-split MMVQ is the RDNA fused-MoE decode path."},
+      {a:"CUB", f:"CUDA Unbound primitives", d:"NVIDIA device-wide sort/scan library. HIP reaches the same ops through hipCUB/rocPRIM. Needed for GPU TOP_K on Flash-Next."},
+      {a:"rocPRIM", f:"ROCm Parallel Primitives", d:"AMD device primitives under hipCUB. DeviceRadixSort is what makes TOP_K run on gfx1100/gfx1201 instead of the CPU."},
+      {a:"RADV", f:"Radeon Vulkan driver (Mesa)", d:"Open-source Vulkan ICD. Fallback when HIP graphs flake. On 9070 XT, Vulkan decode is pathological for hidden_size ≥ 4096 — use HIP for Flash-Next."},
+      {a:"Q8_0", f:"GGUF 8-bit quant type", d:"High-quality tensor type. Video comments and HIP FA notes use Q8_0 for KV or a few sensitive layers. Larger than Q4; not the 8B Mode B default by itself (that is Q4_K_M or Q8_0 for the resident SLM)."},
+      {a:"Q3", f:"3-bit GGUF family", d:"Includes IQ3_XXS / Q3_K_*. The Codacus Flash-Next file is UD-IQ3_XXS. Quality veto for code emission; lab only."},
+      {a:"IQ3", f:"Importance-matrix 3-bit quant", d:"I-quant at 3 bits. UD-IQ3_XXS is the Unsloth Dynamic cut used in the 3060 video."},
+      {a:"I-quant", f:"Importance-matrix GGUF quant", d:"IQ1 / IQ2 / IQ3 / IQ4 family. Better perplexity per byte than a same-bit K-quant, slower on some backends. HIP feature matrix marks some I-quants as supported but slower."},
+      {a:"K-quant", f:"k-means GGUF quant", d:"Q2_K / Q3_K / Q4_K_M / Q5_K / Q6_K family. Q4_K_M is the project default for an 8B resident. K-quants are the usual HIP/CUDA fast path."},
+      {a:"UD", f:"Unsloth Dynamic (quant prefix)", d:"Mixed-precision GGUF from Unsloth (UD-IQ3_XXS, UD-Q4_K_XL). Not a separate runtime. PLE rows stay at a higher bit-width than the experts."},
+      {a:"KLD", f:"Kullback–Leibler divergence", d:"How Unsloth reports quant drift vs BF16. Lower is closer. Used to pick IQ3 vs Q4 for a lab recipe — not a coding-quality test."},
+      {a:"GCD", f:"Graphics Compute Die", d:"The compute chiplet on Navi 31 (7900 XT/XTX). Pair with MCD. Navi 48 (9070 class) is a monolithic die — no GCD/MCD split."},
+      {a:"MCD", f:"Memory Cache Die", d:"Navi 31 memory/Infinity-Cache chiplet. 7900 XT disables one MCD (20 GB / 320-bit); XTX keeps all six (24 GB / 384-bit)."},
+      {a:"HSA", f:"Heterogeneous System Architecture", d:"AMD runtime under ROCm. HSA_OVERRIDE_GFX_VERSION appears only for unsupported targets; gfx1100 and gfx1201 should not need it on ROCm 10.1."},
+      {a:"GGML", f:"Georgi Gerganov Machine Learning", d:"Tensor library under llama.cpp. HIP/CUDA backends, graphs, and flags (GGML_CUDA_USE_CUB, GGML_CUDA_DISABLE_GRAPHS) are GGML knobs, not model names."},
+      {a:"hipBLAS", f:"HIP BLAS", d:"AMD BLAS for HIP. Required to build llama.cpp with -DGGML_HIP=ON."},
+      {a:"hipBLASLt", f:"HIP BLAS Lt", d:"Tuned GEMM plugin. Some ROCm stacks need ROCBLAS_USE_HIPBLASLT=1 or prefill falls off the fast path."},
+      {a:"rocWMMA", f:"ROCm Wave Matrix Multiply-Accumulate", d:"Library behind GGML_HIP_ROCWMMA_FATTN. Fast FA on RDNA; disable HIP graphs if long-context prefill crashes."},
+      {a:"IOMMU", f:"Input-Output Memory Management Unit", d:"CPU remaps DMA. On some AMD boxes leaving IOMMU on costs a few percent; not a Flash-Next requirement. Do not confuse with LRU."},
+      {a:"RCM", f:"Revenue Cycle Management", d:"HFMA: all administrative and clinical functions that contribute to the capture, management, and collection of patient service revenue. Runs from first appointment or encounter to final payment, adjustment, or write-off. CAC Co-Pilot is mid-cycle only (documentation → codes → triage → critic/judge). Not patient access, claims, denials, or collections. No DFT/FHIR writeback in MVP."},
+      {a:"HFMA", f:"Healthcare Financial Management Association", d:"U.S. healthcare-finance guild that owns the standard RCM definition and the MAP Keys KPIs (days in A/R, cost-to-collect, cash as a percent of NPSR). Not a coding body. Distinct from AAPC, AHIMA, and HBMA."},
+      {a:"HBMA", f:"Healthcare Business Management Association", d:"Trade group for medical-billing companies and outsourced RCM shops. Speaks for the service-bureau side of the industry, not hospital CFOs (HFMA) or HIM/coders (AHIMA/AAPC)."},
+      {a:"RCMS", f:"Revenue Cycle Management Specialist (AAPC)", d:"AAPC mid-level credential covering the whole cycle: patient access, authorization, CDI, coding, billing, operations, and back-end. Not a substitute for CPC or CCS. CAC Co-Pilot seats stay certified-coder language (CPC / CCS), not RCMS."},
+      {a:"MAP Keys", f:"HFMA MAP Initiative key performance indicators", d:"Industry-standard RCM scoreboard used by hospital finance: days in A/R, cost-to-collect, cash as a percent of net patient service revenue, and related keys. How CFOs score the function. Not a coding metric and not a Mode A fixture."},
+      {a:"NPSR", f:"Net Patient Service Revenue", d:"Patient-service revenue after contractual adjustments. HFMA cash-collection key is cash as a percent of NPSR. Not gross charges. Irrelevant to the Mode A $/encounter critic/judge fixture."},
+      {a:"A/R", f:"Accounts receivable", d:"Unpaid balances after a claim or statement goes out. Days in A/R is an HFMA MAP Key. Back-end workqueue. Out of CAC Co-Pilot MVP scope."},
+      {a:"Days in A/R", f:"Days in accounts receivable", d:"HFMA MAP Key: how long cash sits unpaid after billing. Back-end metric. Not a triage or critic signal."},
+      {a:"Cost-to-collect", f:"HFMA cost-to-collect (MAP Key FM-6)", d:"Revenue-cycle operating cost divided by patient-service cash collected. Includes salaries, vendors, software, outsource fees, and (as of the 2025 HFMA note) AI/automation workflows. Lab GPU rental is not this number; Mode A $/encounter is critic/judge tokens, not cost-to-collect."},
+      {a:"Front-end", f:"Patient-access stage of the revenue cycle", d:"Scheduling, registration, eligibility, prior authorization, estimates, and point-of-service collect. First contact with the patient. Not in CAC Co-Pilot scope."},
+      {a:"Patient Access", f:"Front-end RCM department", d:"Hospital name for the front-end: pre-registration, eligibility, authorization, financial clearance, counseling. Distinct from HIM (mid-cycle) and PFS / business office (back-end)."},
+      {a:"Mid-cycle", f:"Documentation, CDI, coding, and charge capture", d:"The RCM block CAC Co-Pilot actually sits in. Golden rule: do not code or bill what is not in the record. Locked path: synthetic chart → triage → airlock → stub critic/judge → HITL. Finish professional_outpatient before opening inpatient or HCC."},
+      {a:"Back-end", f:"Claims, remits, denials, A/R, and patient collections", d:"After codes leave the coder. Claim submission, remittance posting, denial workqueues, A/R follow-up, patient statements. Out of MVP. No DFT/FHIR writeback."},
+      {a:"HIM", f:"Health Information Management", d:"Record integrity, coding, CDI, privacy. AHIMA’s profession. Mid-cycle slice of RCM, not the whole continuum. CCS / CDIP / RHIA live here."},
+      {a:"Charge capture", f:"Turning documented services into billable charges", d:"Mid-cycle step after or beside coding. Missed charges leak NPSR before a claim exists. CAC proposes codes; it does not post charges. No DFT in MVP."},
+      {a:"Eligibility", f:"Insurance eligibility / benefits verification", d:"Front-end check that coverage is active and what it pays. Failure here becomes a back-end denial. Not a triage input in the locked envelope."},
+      {a:"Prior auth", f:"Prior authorization / pre-certification", d:"Payer permission required before some services. Front-end / utilization-management. Missing auth is a common denial reason. Not a Mode A critic packet field."},
+      {a:"POS collect", f:"Point-of-service patient collection", d:"Asking for the estimated patient share at check-in or check-out. Front-end cash. Do not confuse with POS (place of service) on the claim."},
+      {a:"Clean claim", f:"Claim that pays on first submission", d:"No missing data, no NCCI/MUE collision, covered diagnosis, timely filing. Mid-cycle coding quality is one input; eligibility and auth are others. CAC Co-Pilot can only help the coding slice."},
+      {a:"Denial management", f:"Preventing and working rejected or denied claims", d:"Back-end. Root-cause often sits upstream (auth, eligibility, documentation, NCCI). CAC Co-Pilot is not a denial workqueue."},
+      {a:"Contractual adjustment", f:"Write-down to the contracted allowed amount", d:"Difference between billed charges and the payer contract. Hits NPSR, not a coding error by itself. Account can still close without full charge capture."},
+      {a:"Write-off", f:"Balance taken to zero without cash", d:"Charity, small-balance, uncollectible, or timely-filing loss. One of AAPC’s four ways an account resolves (with insurance payment, contractual adjustment, or patient payment)."},
+      {a:"Remittance", f:"Payer payment advice posted to the account", d:"Back-end posting of what the payer paid, adjusted, and denied. Paper remits or ERA. Feeds denial management and patient statements."},
+      {a:"ERA", f:"Electronic Remittance Advice", d:"Electronic 835-style payer remit. Back-end. Not an EOB (patient-facing) and not a coding artifact."},
+      {a:"Claim submission", f:"Sending the coded bill to the payer", d:"Professional (CMS-1500 / 837P) or facility (UB-04 / 837I). Happens after mid-cycle. Out of MVP; no claim file is emitted."},
+      {a:"Patient statement", f:"Bill sent to the patient after payer adjudication", d:"Back-end patient-collections artifact. HFMA treats the patient financial experience as part of RCM, not a courtesy. Out of product scope."},
+      {a:"FWA", f:"Fraud, waste, and abuse", d:"Compliance overlay on the revenue cycle. AAPC lists structured RCM as a way to surface FWA (unnecessary services, upcoding). Critic/judge must not invent unsupported codes; Excludes1 drop-and-continue stays locked."},
+      {a:"Claim integrity", f:"HFMA term for claim quality before and after submission", d:"HFMA Claim Integrity Task Force territory: edits, coding support, and denial prevention as one system. Adjacent to mid-cycle CAC, not a second engine. Do not add a parallel claims gateway."}
+    ];
+
+    TERMS.sort((x, y) => x.a.localeCompare(y.a, "en", {sensitivity: "base"}));
+
+    const list = document.getElementById("list");
+    const az = document.getElementById("az");
+    const q = document.getElementById("q");
+    const box = document.getElementById("suggest");
+    const empty = document.getElementById("empty");
+    const count = document.getElementById("count");
+
+    function letterOf(t) {
+      const c = t.a.replace(/^[^A-Za-z]+/, "").charAt(0).toUpperCase();
+      return /[A-Z]/.test(c) ? c : "#";
+    }
+
+    function idOf(t) {
+      return "term-" + t.a.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    }
+
+    const present = new Set(TERMS.map(letterOf));
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(L => {
+      const a = document.createElement("a");
+      a.textContent = L;
+      if (present.has(L)) a.href = "#letter-" + L;
+      else a.className = "empty";
+      az.appendChild(a);
+    });
+
+    let lastLetter = "";
+    TERMS.forEach(t => {
+      const L = letterOf(t);
+      if (L !== lastLetter) {
+        lastLetter = L;
+        const h = document.createElement("div");
+        h.className = "letter";
+        h.id = "letter-" + L;
+        h.textContent = L;
+        list.appendChild(h);
+      }
+      const art = document.createElement("article");
+      art.id = idOf(t);
+      art.dataset.abbr = t.a;
+      art.innerHTML =
+        "<h2>" + t.a + " <span class='full'>— " + t.f + "</span></h2>" +
+        "<p>" + t.d + "</p>" +
+        "<div class='where'>Used in the CAC Copilot / workstation / Vertex discussion.</div>";
+      list.appendChild(art);
+    });
+
+    count.textContent = TERMS.length + " entries";
+
+    function prefixes(t, raw) {
+      const p = raw.trim().toLowerCase();
+      if (!p) return false;
+      if (t.a.toLowerCase().startsWith(p)) return true;
+      const words = (t.a + " " + t.f + " " + t.d).toLowerCase().split(/[^a-z0-9+./-]+/);
+      return words.some(w => w.startsWith(p));
+    }
+
+    function candidates(raw) {
+      const p = raw.trim().toLowerCase();
+      if (!p) return [];
+      const startsAbbr = [];
+      const startsWord = [];
+      TERMS.forEach(t => {
+        if (t.a.toLowerCase().startsWith(p)) startsAbbr.push(t);
+        else if (prefixes(t, p)) startsWord.push(t);
+      });
+      return startsAbbr.concat(startsWord).slice(0, 12);
+    }
+
+    let active = -1;
+    let shown = [];
+
+    function renderSuggest(items) {
+      shown = items;
+      active = items.length ? 0 : -1;
+      box.innerHTML = items.map((t, i) =>
+        "<button type='button' role='option' id='opt-" + i + "' aria-selected='" + (i === 0) + "'>" +
+        "<span class='abbr'>" + t.a + "</span><span class='exp'>" + t.f + "</span></button>"
+      ).join("");
+      box.classList.toggle("open", items.length > 0);
+      q.setAttribute("aria-expanded", items.length > 0 ? "true" : "false");
+      [...box.querySelectorAll("button")].forEach((btn, i) => {
+        btn.addEventListener("mousedown", ev => {
+          ev.preventDefault();
+          choose(items[i]);
+        });
+      });
+    }
+
+    function highlight(i) {
+      active = i;
+      [...box.querySelectorAll("button")].forEach((btn, n) => {
+        btn.setAttribute("aria-selected", n === i ? "true" : "false");
+        if (n === i) btn.scrollIntoView({block: "nearest"});
+      });
+    }
+
+    function choose(t) {
+      q.value = t.a;
+      box.classList.remove("open");
+      q.setAttribute("aria-expanded", "false");
+      filterList(t.a);
+      const el = document.getElementById(idOf(t));
+      if (el) {
+        el.scrollIntoView({behavior: "smooth", block: "start"});
+        history.replaceState(null, "", "#" + idOf(t));
+      }
+    }
+
+    function filterList(raw) {
+      const p = raw.trim();
+      let visible = 0;
+      document.querySelectorAll("article").forEach(art => {
+        const t = TERMS.find(x => idOf(x) === art.id);
+        const ok = !p || prefixes(t, p);
+        art.classList.toggle("hidden", !ok);
+        if (ok) visible++;
+      });
+      document.querySelectorAll(".letter").forEach(h => {
+        let n = h.nextElementSibling;
+        let any = false;
+        while (n && !n.classList.contains("letter")) {
+          if (n.tagName === "ARTICLE" && !n.classList.contains("hidden")) any = true;
+          n = n.nextElementSibling;
+        }
+        h.classList.toggle("hidden", !any);
+      });
+      empty.style.display = visible ? "none" : "block";
+      count.textContent = p
+        ? visible + " matching / " + TERMS.length + " entries"
+        : TERMS.length + " entries";
+    }
+
+    q.addEventListener("input", () => {
+      const items = candidates(q.value);
+      renderSuggest(items);
+      filterList(q.value);
+    });
+
+    q.addEventListener("keydown", ev => {
+      if (!box.classList.contains("open") && ev.key === "ArrowDown") {
+        renderSuggest(candidates(q.value));
+      }
+      if (ev.key === "ArrowDown" && shown.length) {
+        ev.preventDefault();
+        highlight(Math.min(shown.length - 1, active + 1));
+      } else if (ev.key === "ArrowUp" && shown.length) {
+        ev.preventDefault();
+        highlight(Math.max(0, active - 1));
+      } else if (ev.key === "Enter" && shown[active]) {
+        ev.preventDefault();
+        choose(shown[active]);
+      } else if (ev.key === "Escape") {
+        box.classList.remove("open");
+        q.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.addEventListener("click", ev => {
+      if (!ev.target.closest(".search-inner")) box.classList.remove("open");
+    });
+
+    const root = document.documentElement;
+    const themeBtn = document.getElementById("theme");
+    const densBtn = document.getElementById("density");
+    const savedTheme = localStorage.getItem("glossary-theme");
+    if (savedTheme) {
+      root.dataset.theme = savedTheme;
+      themeBtn.setAttribute("aria-pressed", savedTheme === "dark" ? "true" : "false");
+      themeBtn.textContent = savedTheme === "dark" ? "Light" : "Dark";
+    }
+    themeBtn.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      localStorage.setItem("glossary-theme", next);
+      themeBtn.setAttribute("aria-pressed", next === "dark" ? "true" : "false");
+      themeBtn.textContent = next === "dark" ? "Light" : "Dark";
+    });
+    densBtn.addEventListener("click", () => {
+      const on = document.body.dataset.density !== "compact";
+      document.body.dataset.density = on ? "compact" : "comfortable";
+      densBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  </script>
+</body>
+</html>

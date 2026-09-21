@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What It Does — Verisource Labs CAC Co-Pilot</title>
+    <meta name="description" content="Technical architecture and workflow capabilities of Verisource Labs CAC Co-Pilot for certified clinical coders.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0d1117',
+                            card: '#161b22',
+                            cardHover: '#1c2128',
+                            border: '#30363d',
+                            borderLight: '#444c56',
+                            blue: '#2f81f7',
+                            accent: '#388bfd',
+                            muted: '#8b949e',
+                            light: '#f0f6fc',
+                            warning: '#d29922',
+                            success: '#3fb950',
+                            danger: '#f85149'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #f0f6fc;
+            font-family: 'Inter', sans-serif;
+        }
+        .glow-accent {
+            box-shadow: 0 0 25px -5px rgba(47, 129, 247, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-brand-light min-h-screen flex flex-col selection:bg-brand-blue selection:text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-dark/90 border-b border-brand-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="/" class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-blue to-cyan-400 flex items-center justify-center font-bold text-white shadow-lg shadow-brand-blue/20">
+                            VL
+                        </div>
+                        <span class="text-lg font-bold tracking-tight text-white">Verisource <span class="text-brand-blue">Labs</span></span>
+                    </a>
+                    <span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-blue/10 text-brand-blue border border-brand-blue/30">
+                        CAC Co-Pilot
+                    </span>
+                </div>
+                <div class="flex items-center space-x-1 sm:space-x-3">
+                    <a href="/" class="px-3 py-1.5 rounded-md text-sm font-medium text-brand-muted hover:text-white hover:bg-brand-card transition-colors">Overview</a>
+                    <a href="/whatitdoes" class="px-3 py-1.5 rounded-md text-sm font-semibold text-brand-blue bg-brand-blue/10 border border-brand-blue/20">What It Does</a>
+                    <a href="/about" class="px-3 py-1.5 rounded-md text-sm font-medium text-brand-muted hover:text-white hover:bg-brand-card transition-colors">About Us</a>
+                    <a href="/demo" target="_blank" class="hidden md:inline-flex items-center px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-card hover:bg-brand-cardHover border border-brand-border text-brand-light transition-all">
+                        Console Demo ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header class="py-14 sm:py-20 border-b border-brand-border bg-gradient-to-b from-brand-card/40 via-transparent to-transparent">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-blue/10 border border-brand-blue/30 text-brand-blue mb-5">
+                <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                System Architecture &amp; Capabilities
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                Deterministic Triage &amp; Clinical Reasoning for <span class="bg-gradient-to-r from-brand-blue to-cyan-400 bg-clip-text text-transparent">Certified Coders</span>
+            </h1>
+            <p class="text-base sm:text-lg text-brand-muted max-w-2xl mx-auto leading-relaxed">
+                CAC Co-Pilot is a Cloud Run decision support engine that assists credentialed medical coders (CPC / CCS). It validates clinical encounters against regulatory codebooks, flags code collisions, and provides bounded reasoning without autonomous claim finalization.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-16 flex-1">
+
+        <!-- 4-Stage Architectural Pipeline -->
+        <section class="space-y-6">
+            <div class="border-b border-brand-border pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                <div>
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-brand-blue">Core Workflow</h2>
+                    <p class="text-2xl font-bold text-white tracking-tight">The 4-Stage Processing Pipeline</p>
+                </div>
+                <span class="text-xs text-brand-muted font-mono">STRICT HUMAN-IN-THE-LOOP</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Step 1: Airlock -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6 glow-accent flex flex-col justify-between hover:border-brand-borderLight transition-all">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-xs font-bold text-brand-blue px-2 py-0.5 bg-brand-blue/10 rounded">STAGE 01</span>
+                            <span class="text-xs font-mono text-brand-muted">Envelope Ingress</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Schema-Bounded Airlock</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Every patient encounter envelope is inspected against strict schema rules (<code class="text-brand-light font-mono text-xs">additionalProperties: false</code>). Blocks malformed payloads, enforces zero durable PHI transmission, and guarantees $0 spend gating prior to external token burn.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-brand-border/60 flex items-center gap-2 text-xs font-mono text-brand-muted">
+                        <span class="text-brand-success">✓</span> Ingress JSON Schema Check
+                        <span class="text-brand-muted">•</span>
+                        <span class="text-brand-success">✓</span> Zero-Spend Gate
+                    </div>
+                </div>
+
+                <!-- Step 2: SQL Law Rules Engine -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6 glow-accent flex flex-col justify-between hover:border-brand-borderLight transition-all">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-xs font-bold text-brand-blue px-2 py-0.5 bg-brand-blue/10 rounded">STAGE 02</span>
+                            <span class="text-xs font-mono text-brand-muted">Deterministic Logic</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">SQL as Law (NCCI &amp; Codebooks)</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            CMS and AMA coding rules are executed deterministically on CPU via SQLite/Cloud SQL. Inspects NCCI Procedure-to-Procedure (PTP) edits, Medically Unlikely Edits (MUE) unit caps, and ICD-10-CM Excludes1/Excludes2 tables keyed strictly to Date of Service (DOS).
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-brand-border/60 flex items-center gap-2 text-xs font-mono text-brand-muted">
+                        <span class="text-brand-success">✓</span> PTP Conflict Detection
+                        <span class="text-brand-muted">•</span>
+                        <span class="text-brand-success">✓</span> MUE Threshold Enforcement
+                    </div>
+                </div>
+
+                <!-- Step 3: Critic & Judge -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6 glow-accent flex flex-col justify-between hover:border-brand-borderLight transition-all">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-xs font-bold text-brand-blue px-2 py-0.5 bg-brand-blue/10 rounded">STAGE 03</span>
+                            <span class="text-xs font-mono text-brand-muted">Clinical Reasoning</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Gemini Critic &amp; Parallel Judge</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Contested or nuanced clinical cases route to Gemini on Vertex AI / Google AI Studio for bounded arbitration analysis. An independent Vertex AI compliance judge runs in parallel to score verdicts as <code class="text-brand-light font-mono text-xs">agree</code>, <code class="text-brand-light font-mono text-xs">disagree</code>, or <code class="text-brand-light font-mono text-xs">insufficient</code>.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-brand-border/60 flex items-center gap-2 text-xs font-mono text-brand-muted">
+                        <span class="text-brand-success">✓</span> Structured Arbitration
+                        <span class="text-brand-muted">•</span>
+                        <span class="text-brand-success">✓</span> Dual Model Audit
+                    </div>
+                </div>
+
+                <!-- Step 4: Coder Console -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6 glow-accent flex flex-col justify-between hover:border-brand-borderLight transition-all">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-xs font-bold text-brand-blue px-2 py-0.5 bg-brand-blue/10 rounded">STAGE 04</span>
+                            <span class="text-xs font-mono text-brand-muted">Certified Coder Action</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Accept, Override, or Query</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            The certified coder maintains complete authority over the claim. Every proposal includes verifiable citations. When clinical documentation is ambiguous, the system drafts AHIMA/ACDIS-compliant, non-leading physician queries to clarify documentation before submission.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-brand-border/60 flex items-center gap-2 text-xs font-mono text-brand-muted">
+                        <span class="text-brand-success">✓</span> Human in the Loop
+                        <span class="text-brand-muted">•</span>
+                        <span class="text-brand-success">✓</span> Compliant Query Assist
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Capabilities Comparison -->
+        <section class="space-y-6">
+            <div class="border-b border-brand-border pb-3">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-blue">Compliance &amp; Boundaries</h2>
+                <p class="text-2xl font-bold text-white tracking-tight">Engineering Governance &amp; Boundaries</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- What It Does -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6 space-y-4">
+                    <h3 class="text-base font-bold text-brand-success flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-success"></span>
+                        What CAC Co-Pilot Delivers
+                    </h3>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-blue font-bold">→</span>
+                            <span><strong>PTP and MUE Verification:</strong> Flags prohibited procedure combinations and unit thresholds before coder review.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-blue font-bold">→</span>
+                            <span><strong>Excludes1 / Code First Validation:</strong> Evaluates ICD-10-CM coding hierarchies to prevent fatal claim denials.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-blue font-bold">→</span>
+                            <span><strong>Immutable Audit Trails:</strong> Logs every evaluation event, tier assignment, and coder override into structured JSON/JSONL.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-blue font-bold">→</span>
+                            <span><strong>Non-Leading Query Generation:</strong> Generates clinical documentation inquiries compliant with AHIMA/ACDIS practice briefs.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-blue font-bold">→</span>
+                            <span><strong>Cloud Run Efficiency:</strong> Lightweight CPU-only service in us-east4 with zero GPU rental overhead.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- What It Is NOT -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6 space-y-4">
+                    <h3 class="text-base font-bold text-brand-danger flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-danger"></span>
+                        Architectural Anti-Patterns &amp; Non-Goals
+                    </h3>
+                    <ul class="space-y-3 text-sm text-brand-muted">
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-danger font-bold">✕</span>
+                            <span><strong>Not Autonomous Finalization:</strong> The engine never signs, submits, or commits medical billing claims to payers without human oversight.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-danger font-bold">✕</span>
+                            <span><strong>Not an EHR Replacement:</strong> Does not store primary medical records or replace hospital electronic health systems.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-danger font-bold">✕</span>
+                            <span><strong>Not a Local GPU Product:</strong> Eliminates resident 8B-70B model GPU setups, eliminating expensive hardware requirements.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-danger font-bold">✕</span>
+                            <span><strong>No Unverified PHI Ingress:</strong> Demo and sandbox tiers process strictly synthetic clinical charts (Synthea-derived).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-danger font-bold">✕</span>
+                            <span><strong>No Direct DFT Writeback in MVP:</strong> Avoids fragile direct FHIR/HL7 writebacks during initial triage rollout.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infrastructure & Security Matrix -->
+        <section class="space-y-6">
+            <div class="border-b border-brand-border pb-3">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-blue">Environment &amp; Stack</h2>
+                <p class="text-2xl font-bold text-white tracking-tight">Enterprise Cloud Infrastructure</p>
+            </div>
+
+            <div class="overflow-hidden border border-brand-border rounded-xl bg-brand-card">
+                <table class="min-w-full divide-y divide-brand-border text-left text-sm">
+                    <thead class="bg-brand-cardHover text-xs font-semibold text-brand-muted uppercase tracking-wider">
+                        <tr>
+                            <th class="px-6 py-3">Layer</th>
+                            <th class="px-6 py-3">Technology</th>
+                            <th class="px-6 py-3">Region &amp; Constraints</th>
+                            <th class="px-6 py-3">Compliance Role</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brand-border text-brand-muted">
+                        <tr class="hover:bg-brand-dark/30 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-white">App Runtime</td>
+                            <td class="px-6 py-4 font-mono text-xs text-brand-light">Google Cloud Run (FastAPI + Uvicorn)</td>
+                            <td class="px-6 py-4 font-mono text-xs text-brand-blue">us-east4 (Ashburn)</td>
+                            <td class="px-6 py-4">CPU-only microservice; auto-scales to zero.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-dark/30 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-white">Identity Ingress</td>
+                            <td class="px-6 py-4 font-mono text-xs text-brand-light">Identity-Aware Proxy (IAP)</td>
+                            <td class="px-6 py-4 font-mono text-xs">Zero public endpoints</td>
+                            <td class="px-6 py-4">Cryptographically enforces authorized coder seats.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-dark/30 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-white">Rules Engine</td>
+                            <td class="px-6 py-4 font-mono text-xs text-brand-light">SQLite / Cloud SQL (NCCI Codebooks)</td>
+                            <td class="px-6 py-4 font-mono text-xs">In-Process / VPC Private</td>
+                            <td class="px-6 py-4">Deterministic CMS statutory compliance by DOS.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-dark/30 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-white">Clinical Critic</td>
+                            <td class="px-6 py-4 font-mono text-xs text-brand-light">Gemini 3.6 Flash / Vertex AI</td>
+                            <td class="px-6 py-4 font-mono text-xs">Schema-Bounded JSON</td>
+                            <td class="px-6 py-4">Clinical documentation dispute arbitration.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-dark/30 transition-colors">
+                            <td class="px-6 py-4 font-semibold text-white">Audit &amp; Telemetry</td>
+                            <td class="px-6 py-4 font-mono text-xs text-brand-light">Cloud Logging / BigQuery</td>
+                            <td class="px-6 py-4 font-mono text-xs">us-east4 / US multi-region</td>
+                            <td class="px-6 py-4">Immutable log of acceptance &amp; coder overrides.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CTA / Nav Section -->
+        <section class="bg-gradient-to-r from-brand-card via-brand-cardHover to-brand-card border border-brand-border rounded-xl p-8 text-center space-y-4">
+            <h3 class="text-xl font-bold text-white">Explore Verisource Labs</h3>
+            <p class="text-sm text-brand-muted max-w-xl mx-auto">
+                Read our engineering background, company mission, and leadership history in distributed networking and systems infrastructure.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 pt-2">
+                <a href="/about" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-brand-blue hover:bg-brand-accent text-white shadow-lg shadow-brand-blue/20 transition-all">
+                    Meet the Team &amp; About Us →
+                </a>
+                <a href="/" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-brand-dark hover:bg-brand-card border border-brand-border text-brand-light transition-all">
+                    Back to Overview
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-brand-border py-8 bg-brand-dark text-center text-xs text-brand-muted">
+        <div class="max-w-4xl mx-auto px-4 space-y-2">
+            <p>&copy; 2026 Verisource Labs, LLC · Ann Arbor, Michigan. All rights reserved.</p>
+            <p class="text-[11px] text-brand-muted/70">CAC Co-Pilot is an assistive clinical decision platform for credentialed healthcare coders.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

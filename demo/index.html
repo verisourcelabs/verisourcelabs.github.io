@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAC Co-Pilot · Mode A</title>
+  <style>
+    :root {
+      --bg: #0e1412;
+      --panel: #17211d;
+      --ink: #e7f0ea;
+      --muted: #8aa396;
+      --line: #2a3b34;
+      --accent: #3dba8b;
+      --warn: #e0b25a;
+      --block: #d4655a;
+      --cloud: #6ea8ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 14px/1.45 "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    header strong { color: var(--accent); letter-spacing: 0.04em; }
+    header span { color: var(--muted); font-size: 12px; }
+    main {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      min-height: calc(100vh - 56px);
+    }
+    aside, section, article {
+      padding: 16px;
+      border-right: 1px solid var(--line);
+    }
+    article { border-right: 0; }
+    h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 12px; }
+    .case {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: var(--panel);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      margin: 0 0 8px;
+      cursor: pointer;
+    }
+    .case.active { border-color: var(--accent); }
+    .case b { display: block; margin-bottom: 4px; }
+    .hint { font-size: 11px; color: var(--muted); }
+    .pill {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      margin-right: 6px;
+    }
+    .LOCAL_HARD_BLOCK { color: var(--block); }
+    .LOCAL_CDI_QUERY_DRAFT { color: var(--warn); }
+    .CLOUD_ARBITRATION { color: var(--cloud); }
+    .LOCAL_ACCEPT_QUEUE { color: var(--accent); }
+    pre {
+      background: #0a100e;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      overflow: auto;
+      font-size: 12px;
+    }
+    button.run, button.decide {
+      background: var(--accent);
+      color: #062117;
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-weight: 650;
+      cursor: pointer;
+      margin: 8px 8px 8px 0;
+    }
+    button.decide { background: #c9d6cf; }
+    select, input {
+      background: var(--panel);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin: 4px 8px 8px 0;
+    }
+    .quote { border-left: 3px solid var(--accent); padding: 6px 10px; margin: 8px 0; color: #d5e6dc; }
+    #status { color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>CAC CO-PILOT</strong>
+      <div>Mode A · Cloud Run SaaS · synthetic charts only · no local inference</div>
+    </div>
+    <span id="who">loading seat…</span>
+  </header>
+  <main>
+    <aside>
+      <h2>Worklist</h2>
+      <div id="cases"></div>
+    </aside>
+    <section>
+      <h2>Encounter</h2>
+      <div id="meta"></div>
+      <div id="quotes"></div>
+      <button class="run" id="run">Run triage</button>
+      <span id="status"></span>
+      <h2>Result</h2>
+      <pre id="result">Select a case.</pre>
+      <div>
+        <select id="override">
+          <option>AGREE_AS_IS</option>
+          <option>SPECIFICITY_UPGRADE</option>
+          <option>UNSUPPORTED_DELETION</option>
+          <option>MODIFIER_ALTERATION</option>
+          <option>QUERY_INITIATED</option>
+        </select>
+        <input id="note" placeholder="Coder note (no PHI)" size="36" />
+        <button class="decide" id="decide">Record decision</button>
+      </div>
+    </section>
+    <article>
+      <h2>Audit</h2>
+      <pre id="audit">—</pre>
+    </article>
+  </main>
+  <script>
+    let current = null;
+    let lastReq = null;
+    const $ = (id) => document.getElementById(id);
+
+    window._staticAudit = [
+      {
+        request_id: "REQ_ab0101-demo-hist1",
+        action: "LOCAL_HARD_BLOCK",
+        candidates: ["43239", "43235"],
+        override_code: "AGREE_AS_IS",
+        cloud_usd: 0.0,
+      },
+      {
+        request_id: "REQ_ab0d0d-demo-hist2",
+        action: "LOCAL_CDI_QUERY_DRAFT",
+        candidates: ["H66.90", "99213"],
+        override_code: "QUERY_INITIATED",
+        cloud_usd: 0.0,
+      },
+      {
+        request_id: "REQ_ab0e0e-demo-hist3",
+        action: "LOCAL_ACCEPT_QUEUE",
+        candidates: ["99213", "11102"],
+        override_code: "AGREE_AS_IS",
+        cloud_usd: 0.0,
+      },
+      {
+        request_id: "REQ_ab0b0b-demo-hist4",
+        action: "CLOUD_ARBITRATION",
+        candidates: ["99213"],
+        override_code: "SPECIFICITY_UPGRADE",
+        cloud_usd: 0.0024,
+      },
+    ];
+
+    async function jget(url) {
+      try {
+        const r = await fetch(url);
+        if (r.ok) return await r.json();
+      } catch (e) {}
+
+      if (url === "/v1/me") {
+        return { ok: true, seat: { email: "demo@verisourcelabs.com", plan: "enterprise", tenant: "synthetic-health" } };
+      }
+      if (url === "/v1/cases") {
+        try {
+          const r2 = await fetch("demo_cases.json").catch(() => fetch("/assets/demo_cases.json"));
+          if (r2.ok) {
+            window._staticCases = await r2.json();
+            return {
+              ok: true,
+              cases: Object.values(window._staticCases).map((c) => ({
+                case_id: c.case_id,
+                title: c.title,
+                plan_hint: c.plan_hint,
+              })),
+            };
+          }
+        } catch (e) {}
+      }
+      if (url.startsWith("/v1/cases/")) {
+        const id = url.replace("/v1/cases/", "");
+        if (window._staticCases && window._staticCases[id]) {
+          return window._staticCases[id];
+        }
+      }
+      if (url === "/v1/audit") {
+        return { ok: true, rows: window._staticAudit || [] };
+      }
+      return { ok: false, reason: "unavailable" };
+    }
+
+    async function jpost(url, body) {
+      try {
+        const r = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: body ? JSON.stringify(body) : "{}",
+        });
+        if (r.ok) return await r.json();
+      } catch (e) {}
+
+      window._staticAudit = window._staticAudit || [];
+      if (url.startsWith("/v1/cases/") && url.endsWith("/run")) {
+        const id = url.split("/")[3];
+        const c = (window._staticCases && window._staticCases[id]) || {};
+        const req_id = "REQ_" + id + "_" + Math.random().toString(36).substring(2, 8);
+        const action = c.action || c.plan_hint || "LOCAL_ACCEPT_QUEUE";
+        const cloud_usd = action === "CLOUD_ARBITRATION" ? 0.0024 : 0.0;
+        const out = {
+          ok: true,
+          action: action,
+          request_id: req_id,
+          case_id: id,
+          candidates: c.candidates || [],
+          cloud_usd: cloud_usd,
+          validation_logs: [
+            "Evaluated statutory NCCI and codebook rules for " + id + ".",
+            "Assigned triage tier: " + action,
+          ],
+          timestamp: new Date().toISOString(),
+        };
+        window._staticAudit.unshift({
+          request_id: req_id,
+          action: action,
+          candidates: c.candidates || [],
+          override_code: null,
+          cloud_usd: cloud_usd,
+        });
+        return out;
+      }
+      if (url.startsWith("/v1/work/") && url.endsWith("/decision")) {
+        const req_id = url.split("/")[3];
+        const found = window._staticAudit.find((r) => r.request_id === req_id);
+        const code = (body && body.override_code) || "AGREE_AS_IS";
+        if (found) found.override_code = code;
+        return { ok: true, request_id: req_id, override_code: code };
+      }
+      return { ok: false, reason: "unavailable" };
+    }
+
+    async function boot() {
+      const me = await jget("/v1/me");
+      $("who").textContent = me.ok
+        ? `${me.seat.email} · ${me.seat.plan} · ${me.seat.tenant}`
+        : (me.reason || "no seat");
+      const list = await jget("/v1/cases");
+      $("cases").innerHTML = (list.cases || []).map((c) =>
+        `<button class="case" data-id="${c.case_id}"><b>${c.title}</b><span class="hint">${c.plan_hint}</span></button>`
+      ).join("");
+      document.querySelectorAll(".case").forEach((btn) => {
+        btn.addEventListener("click", () => openCase(btn.dataset.id, btn));
+      });
+      if (list.cases && list.cases.length > 0) {
+        const firstBtn = document.querySelector(".case");
+        openCase(list.cases[0].case_id, firstBtn);
+      }
+      refreshAudit();
+    }
+
+    async function openCase(id, btn) {
+      document.querySelectorAll(".case").forEach((b) => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      const data = await jget("/v1/cases/" + id);
+      current = data.case_id;
+      lastReq = null;
+      $("meta").innerHTML =
+        `<div><b>${data.title}</b></div>
+         <div class="hint">${data.blurb}</div>
+         <div style="margin-top:8px">
+           <span class="pill">${data.setting}</span>
+           <span class="pill ${data.plan_hint}">${data.plan_hint}</span>
+         </div>`;
+      $("quotes").innerHTML = (data.quotes || []).map((q) =>
+        `<div class="quote"><code>${q.span_id}</code> — ${q.text}</div>`
+      ).join("");
+      $("result").textContent = "Ready. Quotes only — no chart body leaves this page as free text.";
+    }
+
+    $("run").addEventListener("click", async () => {
+      if (!current) return;
+      $("status").textContent = "running…";
+      const out = await jpost("/v1/cases/" + current + "/run");
+      $("status").textContent = out.ok ? out.action : (out.reason || "error");
+      lastReq = out.request_id;
+      $("result").textContent = JSON.stringify(out, null, 2);
+      refreshAudit();
+    });
+
+    $("decide").addEventListener("click", async () => {
+      if (!lastReq) return;
+      const out = await jpost("/v1/work/" + lastReq + "/decision", {
+        override_code: $("override").value,
+        note: $("note").value,
+      });
+      $("status").textContent = out.ok ? out.override_code : (out.reason || "error");
+      refreshAudit();
+    });
+
+    async function refreshAudit() {
+      const out = await jget("/v1/audit");
+      const rows = (out.rows || []).map((r) =>
+        `${r.request_id.slice(0, 18)}…  ${r.action}  ${(r.candidates || []).join(",") || "[]"}  ${r.override_code || "open"}  $${Number(r.cloud_usd || 0).toFixed(6)}`
+      );
+      $("audit").textContent = rows.join("\n") || "empty";
+    }
+
+    boot();
+  </script>
+</body>
+</html>
