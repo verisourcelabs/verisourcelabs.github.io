@@ -789,12 +789,6 @@
               <div class="meta-val">${candidatesHtml}</div>
             </div>
             <div class="meta-item">
-              <div class="meta-label">Cloud Spend</div>
-              <div class="meta-val" style="color:${Number(out.cloud_usd || 0) > 0 ? 'var(--cloud)' : 'var(--accent)'}">
-                $${Number(out.cloud_usd || 0).toFixed(6)}
-              </div>
-            </div>
-            <div class="meta-item">
               <div class="meta-label">Request ID</div>
               <div class="meta-val" style="font-size:10px;color:var(--muted);font-weight:normal;">${(out.request_id || "").slice(0, 18)}…</div>
             </div>
