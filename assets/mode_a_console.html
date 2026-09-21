@@ -175,6 +175,289 @@
       },
     ];
 
+    const STATIC_CASES = {
+  "ptp0-endoscopy": {
+    "case_id": "ptp0-endoscopy",
+    "title": "NCCI PTP indicator 0 \u2014 bundled endoscopy",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_HARD_BLOCK",
+    "blurb": "43239 with 43235. Indicator 0: hard-block and cite. No cloud tokens.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0101",
+        "text": "EGD with biopsy performed same session as diagnostic EGD. No separate site documented."
+      }
+    ],
+    "action": "LOCAL_HARD_BLOCK",
+    "candidates": [
+      "43239",
+      "43235"
+    ]
+  },
+  "excludes1-a-only": {
+    "case_id": "excludes1-a-only",
+    "title": "Excludes1 \u2014 only low-back pain supported",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_ACCEPT_QUEUE",
+    "blurb": "Drop unsupported disc code. Accept M54.50. No cloud.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0202",
+        "text": "Coder note: lumbar pain documented. No disc-level imaging or findings on this visit."
+      }
+    ],
+    "action": "LOCAL_ACCEPT_QUEUE",
+    "candidates": [
+      "M54.50"
+    ]
+  },
+  "excludes1-neither": {
+    "case_id": "excludes1-neither",
+    "title": "Excludes1 \u2014 neither low-back pain nor disc supported",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_HARD_BLOCK",
+    "blurb": "SQL Excludes1 pair. Both codes unsupported. Empty remainder. Hard-block.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0808",
+        "text": "Coder note: assessment lists lumbar pain and disc displacement without supporting findings on this visit."
+      }
+    ],
+    "action": "LOCAL_HARD_BLOCK",
+    "candidates": [
+      "M54.50",
+      "M51.26"
+    ]
+  },
+  "excludes1-both": {
+    "case_id": "excludes1-both",
+    "title": "Excludes1 \u2014 low-back pain and lumbar disc both supported",
+    "setting": "professional_outpatient",
+    "plan_hint": "CLOUD_ARBITRATION",
+    "blurb": "M54.50 and M51.26 both have quotes. SQL Excludes1 pair. Cloud arbitration.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0303",
+        "text": "Provider documents lumbar pain and lumbar disc displacement on the same assessment."
+      }
+    ],
+    "action": "CLOUD_ARBITRATION",
+    "candidates": [
+      "M51.26",
+      "M54.50"
+    ]
+  },
+  "ptp-clear": {
+    "case_id": "ptp-clear",
+    "title": "PTP indicator 1 \u2014 clear distinct lesion",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_ACCEPT_QUEUE",
+    "blurb": "11102/10011 SQL indicator 1, CLEAR_SINGLE. Accept locally. No cloud.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0909",
+        "text": "Tangential biopsy of the forearm. Separate FNA of a distinct neck lesion same DOS_0."
+      }
+    ],
+    "action": "LOCAL_ACCEPT_QUEUE",
+    "candidates": [
+      "11102",
+      "10011"
+    ]
+  },
+  "ptp-none": {
+    "case_id": "ptp-none",
+    "title": "PTP indicator 1 \u2014 no distinct-service justification",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_CDI_QUERY_DRAFT",
+    "blurb": "11102/10011 SQL indicator 1, justification NONE. Draft CDI query. No critic.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0a0a",
+        "text": "Tangential biopsy and FNA same DOS_0. Note does not state a distinct site or session."
+      }
+    ],
+    "action": "LOCAL_CDI_QUERY_DRAFT",
+    "candidates": [
+      "11102",
+      "10011"
+    ]
+  },
+  "ptp-contested": {
+    "case_id": "ptp-contested",
+    "title": "PTP indicator 1 \u2014 contested modifier 59",
+    "setting": "professional_outpatient",
+    "plan_hint": "CLOUD_ARBITRATION",
+    "blurb": "11102/10011 official SQL indicator 1, justification ambiguous. Cloud arbitration.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0404",
+        "text": "Tangential biopsy and FNA same DOS_0. Distinct-lesion language is mixed across the note."
+      }
+    ],
+    "action": "CLOUD_ARBITRATION",
+    "candidates": [
+      "11102",
+      "10011"
+    ]
+  },
+  "em-mdm-missing": {
+    "case_id": "em-mdm-missing",
+    "title": "E/M \u2014 mdm_level missing",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_CDI_QUERY_DRAFT",
+    "blurb": "99213 on the envelope without MDM. Adapter requires mdm_level for E/M. CDI query.",
+    "quotes": [
+      {
+        "span_id": "SP_ab1011",
+        "text": "Office visit documented. MDM is not stated in the assessment."
+      }
+    ],
+    "action": "LOCAL_ACCEPT_QUEUE",
+    "candidates": [
+      "99213"
+    ]
+  },
+  "unspecified-leaf": {
+    "case_id": "unspecified-leaf",
+    "title": "Unspecified leaf \u2014 chest pain unspecified",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_CDI_QUERY_DRAFT",
+    "blurb": "R07.9 is an unspecified leaf. Draft CDI query for a more specific chest-pain code. No critic.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0c0c",
+        "text": "Office visit for chest pain. Assessment is unspecified chest pain. No site or cause documented."
+      }
+    ],
+    "action": "LOCAL_CDI_QUERY_DRAFT",
+    "candidates": [
+      "R07.9"
+    ]
+  },
+  "missing-laterality": {
+    "case_id": "missing-laterality",
+    "title": "Missing laterality \u2014 unspecified ear",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_CDI_QUERY_DRAFT",
+    "blurb": "H66.90 needs laterality. Draft CDI query. No critic.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0d0d",
+        "text": "Otitis media documented. Note does not state left, right, or bilateral."
+      }
+    ],
+    "action": "LOCAL_CDI_QUERY_DRAFT",
+    "candidates": [
+      "H66.90"
+    ]
+  },
+  "modifier-25-clear": {
+    "case_id": "modifier-25-clear",
+    "title": "Modifier 25 \u2014 separately identifiable E/M",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_ACCEPT_QUEUE",
+    "blurb": "99213 with 11102 same DOS_0. SQL PTP indicator 1, CLEAR_SINGLE. Modifier 25. Accept.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0e0e",
+        "text": "Office E/M for a new rash. Separate tangential biopsy of a distinct lesion same DOS_0."
+      }
+    ],
+    "action": "LOCAL_ACCEPT_QUEUE",
+    "candidates": [
+      "11102",
+      "99213"
+    ]
+  },
+  "modifier-25-none": {
+    "case_id": "modifier-25-none",
+    "title": "Modifier 25 \u2014 no separate E/M documented",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_CDI_QUERY_DRAFT",
+    "blurb": "99213 with 11102 same DOS_0. SQL PTP indicator 1, justification NONE. Draft CDI query.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0f0f",
+        "text": "Visit is the biopsy. Note does not document a separately identifiable E/M service."
+      }
+    ],
+    "action": "LOCAL_CDI_QUERY_DRAFT",
+    "candidates": [
+      "11102",
+      "99213"
+    ]
+  },
+  "mue-over-biopsy": {
+    "case_id": "mue-over-biopsy",
+    "title": "MUE \u2014 two units of 11102 against cap 1",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_HARD_BLOCK",
+    "blurb": "SQL practitioner MUE for 11102 is 1 (MAI 2). Two units same DOS_0. Hard-block.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0707",
+        "text": "Two tangential biopsies documented same DOS_0. No distinct-site language."
+      }
+    ],
+    "action": "LOCAL_ACCEPT_QUEUE",
+    "candidates": [
+      "11102"
+    ]
+  },
+  "global-none": {
+    "case_id": "global-none",
+    "title": "Global window \u2014 no unrelated justification",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_CDI_QUERY_DRAFT",
+    "blurb": "In 90-day global, justification NONE. Draft CDI query. No critic.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0505",
+        "text": "Office visit inside POD_12 of a 90-day global. Note does not state unrelated."
+      }
+    ],
+    "action": "LOCAL_CDI_QUERY_DRAFT",
+    "candidates": [
+      "99213"
+    ]
+  },
+  "global-clear": {
+    "case_id": "global-clear",
+    "title": "Global window \u2014 clear unrelated problem",
+    "setting": "professional_outpatient",
+    "plan_hint": "LOCAL_ACCEPT_QUEUE",
+    "blurb": "POD_18 visit for a new, unrelated problem. Accept locally.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0606",
+        "text": "POD_18 visit for an unrelated complaint. Separate assessment documented."
+      }
+    ],
+    "action": "LOCAL_ACCEPT_QUEUE",
+    "candidates": [
+      "99213"
+    ]
+  },
+  "global-contested": {
+    "case_id": "global-contested",
+    "title": "Global window \u2014 contested unrelated problem",
+    "setting": "professional_outpatient",
+    "plan_hint": "CLOUD_ARBITRATION",
+    "blurb": "POD_18 visit. Note both claims unrelated and refers to the operative site. Cloud.",
+    "quotes": [
+      {
+        "span_id": "SP_ab0b0b",
+        "text": "POD_18 visit. Assessment calls the complaint unrelated and also ties it to the operative site."
+      }
+    ],
+    "action": "CLOUD_ARBITRATION",
+    "candidates": [
+      "99213"
+    ]
+  }
+};
+
     async function jget(url) {
       try {
         const r = await fetch(url);
@@ -185,26 +468,18 @@
         return { ok: true, seat: { email: "demo@verisourcelabs.com", plan: "enterprise", tenant: "synthetic-health" } };
       }
       if (url === "/v1/cases") {
-        try {
-          const r2 = await fetch("demo_cases.json").catch(() => fetch("/assets/demo_cases.json"));
-          if (r2.ok) {
-            window._staticCases = await r2.json();
-            return {
-              ok: true,
-              cases: Object.values(window._staticCases).map((c) => ({
-                case_id: c.case_id,
-                title: c.title,
-                plan_hint: c.plan_hint,
-              })),
-            };
-          }
-        } catch (e) {}
+        return {
+          ok: true,
+          cases: Object.values(STATIC_CASES).map((c) => ({
+            case_id: c.case_id,
+            title: c.title,
+            plan_hint: c.plan_hint,
+          })),
+        };
       }
       if (url.startsWith("/v1/cases/")) {
         const id = url.replace("/v1/cases/", "");
-        if (window._staticCases && window._staticCases[id]) {
-          return window._staticCases[id];
-        }
+        return STATIC_CASES[id] || { ok: false, reason: "Case not found" };
       }
       if (url === "/v1/audit") {
         return { ok: true, rows: window._staticAudit || [] };
@@ -225,7 +500,7 @@
       window._staticAudit = window._staticAudit || [];
       if (url.startsWith("/v1/cases/") && url.endsWith("/run")) {
         const id = url.split("/")[3];
-        const c = (window._staticCases && window._staticCases[id]) || {};
+        const c = (STATIC_CASES && STATIC_CASES[id]) || {};
         const req_id = "REQ_" + id + "_" + Math.random().toString(36).substring(2, 8);
         const action = c.action || c.plan_hint || "LOCAL_ACCEPT_QUEUE";
         const cloud_usd = action === "CLOUD_ARBITRATION" ? 0.0024 : 0.0;
