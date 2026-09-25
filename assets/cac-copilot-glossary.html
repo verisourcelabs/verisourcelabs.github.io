@@ -350,10 +350,47 @@
         letter-spacing: 0;
         text-wrap: pretty;
       }
-      article p {
-        margin: 0;
+      .def-row {
         grid-column: 2;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+      .def-row p {
+        margin: 0;
+        flex: 1;
         text-wrap: pretty;
+      }
+      .del-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0.28rem 0.38rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.45;
+        transition: opacity 140ms ease, color 140ms ease, background-color 140ms ease, border-color 140ms ease;
+        flex-shrink: 0;
+        align-self: flex-start;
+        margin-top: -0.1rem;
+      }
+      article:hover .del-btn,
+      .del-btn:focus-visible {
+        opacity: 0.85;
+      }
+      .del-btn:hover {
+        opacity: 1;
+        color: oklch(60% 0.2 25);
+        background: color-mix(in oklch, oklch(60% 0.2 25) 12%, var(--paper));
+        border-color: color-mix(in oklch, oklch(60% 0.2 25) 28%, transparent);
+      }
+      .del-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
       }
       .where {
         grid-column: 2;
@@ -366,7 +403,7 @@
         article {
           grid-template-columns: 1fr;
         }
-        article p, .where { grid-column: 1; }
+        .def-row, .where { grid-column: 1; }
         article h2 { margin-bottom: 0.15rem; }
       }
       article:target {
@@ -387,7 +424,7 @@
         margin: 0.28rem 0;
         border-radius: 8px;
       }
-      [data-density="compact"] article p { display: none; }
+      [data-density="compact"] article .def-row { display: none; }
       [data-density="compact"] .where { display: none; }
 
       footer.colophon {
@@ -431,7 +468,7 @@
       @media print {
         :root { --bg: white; --paper: white; --shadow: none; }
         body { background: white; font-size: 10.5pt; color: black; }
-        .search-wrap, .toolbar, .az, .where, #empty { display: none !important; }
+        .search-wrap, .toolbar, .az, .where, #empty, .del-btn { display: none !important; }
         header.hero { padding: 0 0 0.8rem; }
         .page-wrap { display: block; width: auto; }
         main {
@@ -465,9 +502,10 @@
     <div class="hero-top">
       <div>
         <h1>CAC Copilot glossary</h1>
-        <p class="lede">Alphabetical list of abbreviations and acronyms used for CAC Copilot: Cloud Run + IAP in us-east4 (no product GPU; Mode B retired 8 Sep 2026), coding systems, and the written-BAA path for Workspace, Google Cloud, and xAI. Prefix search matches the start of an abbreviation or any word in its expansion.</p>
+        <p class="lede">Alphabetical list of abbreviations and acronyms used for CAC Copilot: Cloud Run + IAP in us-central1 (no product GPU; Mode B retired 8 Sep 2026), coding systems, and the written-BAA path for Workspace, Google Cloud, and xAI. Prefix search matches the start of an abbreviation or any word in its expansion.</p>
       </div>
       <div class="toolbar" role="group" aria-label="Display options">
+        <button type="button" id="reset-deleted" class="hidden" title="Restore all deleted glossary entries">Restore (0)</button>
         <button type="button" id="theme" aria-pressed="false">Dark</button>
         <button type="button" id="density" aria-pressed="false">Compact</button>
       </div>
@@ -509,7 +547,7 @@
       {a:"AIB", f:"Add-in board (partner card)", d:"A GPU built by ASUS, MSI, Gigabyte, and others rather than NVIDIA Founders Edition."},
       {a:"AI", f:"Artificial intelligence", d:"Umbrella term for the local copilot, Vertex-tuned models, and Google AI Studio work in this project."},
       {a:"AIO", f:"All-in-one liquid cooler", d:"Closed-loop CPU cooler recommended as an option for the Linux workstation."},
-      {a:"All-Cloud Run", f:"All-Cloud-Run PHI SaaS track", d:"Post-Startups + $2k-credit production target: same Cloud Run image family holds real charts under a BA stack (IAP, us-east4, VPC-SC, four BAAs). Not the Startup Demo. Not Safe Harbor. No GPU. See specs/CAC_COPILOT_SYSTEM_STATE.md §1.3."},
+      {a:"All-Cloud Run", f:"All-Cloud-Run PHI SaaS track", d:"Post-Startups + $2k-credit production target: same Cloud Run image family holds real charts under a BA stack (IAP, us-central1, VPC-SC, four BAAs). Not the Startup Demo. Not Safe Harbor. No GPU. See specs/CAC_COPILOT_SYSTEM_STATE.md §1.3."},
       {a:"AM5", f:"AMD Socket AM5", d:"Current AMD Ryzen 7000/9000 desktop socket planned for the workstation motherboard."},
       {a:"AMD", f:"Advanced Micro Devices", d:"Maker of Ryzen CPUs and Radeon GPUs. Considered, then deprioritized versus NVIDIA CUDA for this CAC box."},
       {a:"API", f:"Application programming interface", d:"Call surfaces: local llama.cpp/Ollama/vLLM later; Cloud Run POST /v1/egress/inspect; Grok critic API; Vertex judge. Grok API is not covered by a Google BAA — it needs its own xAI BAA + usually ZDR before PHI."},
@@ -571,7 +609,7 @@
       {a:"FT", f:"Fine-tuning", d:"Updating model weights on domain examples. Prefer PEFT/LoRA before full FT."},
       {a:"GB10", f:"Grace Blackwell 10 superchip", d:"Chip inside DGX Spark: Arm CPU + Blackwell GPU with unified memory."},
       {a:"GB/s", f:"Gigabytes per second", d:"Memory bandwidth. Primary ceiling on LLM decode speed."},
-      {a:"GCP", f:"Google Cloud Platform", d:"Mode A host (Cloud Run + IAP in us-east4) and Vertex judge. Execute the Cloud HIPAA BAA once per billing account before any PHI project. Pre-GA services are out of the BAA."},
+      {a:"GCP", f:"Google Cloud Platform", d:"Mode A host (Cloud Run + IAP in us-central1) and Vertex judge. Execute the Cloud HIPAA BAA once per billing account before any PHI project. Pre-GA services are out of the BAA."},
       {a:"GCS", f:"Google Cloud Storage", d:"Bucket location for JSONL training sets and exported adapters."},
       {a:"GDDR6", f:"Graphics Double Data Rate 6", d:"Memory on RX 7900 XTX and many AMD cards."},
       {a:"GDDR6X", f:"Graphics Double Data Rate 6X", d:"Memory on RTX 3090/4090."},
@@ -669,7 +707,7 @@
       {a:"RoPE", f:"Rotary positional embeddings", d:"Position encoding inside most modern LLMs; related to long-context tricks like YaRN."},
       {a:"RTX", f:"NVIDIA GeForce RTX", d:"Consumer GPU brand. 3090/4090/50-series cards discussed for the build."},
       {a:"RX", f:"AMD Radeon RX", d:"Consumer AMD GPU brand (7900 XTX, 9070 XT)."},
-      {a:"SaaS", f:"Software as a service", d:"Product is a Cloud Run SaaS seat (IAP, us-east4, CPU). No GPU required. Workspace is the ops SaaS and needs its own BAA before PHI mail/docs."},
+      {a:"SaaS", f:"Software as a service", d:"Product is a Cloud Run SaaS seat (IAP, us-central1, CPU). No GPU required. Workspace is the ops SaaS and needs its own BAA before PHI mail/docs."},
       {a:"SDK", f:"Software development kit", d:"Vertex AI / Gemini client libraries used to launch SFT jobs."},
       {a:"SFT", f:"Supervised fine-tuning", d:"Teaching a model from labeled input→output pairs. First Vertex training path recommended."},
       {a:"SFF", f:"Small form factor", d:"Compact cases/cards. Not the priority for a hot 4090 workstation."},
@@ -736,7 +774,7 @@
       {a:"Included Functionality", f:"Workspace HIPAA Included Functionality", d:"Subset of Workspace core services where PHI is allowed after the Workspace BAA: Gmail, Drive/Docs/Sheets/Slides/Forms, Calendar, Chat, Meet, Vault (if licensed), Gemini in Workspace, and others on Google’s current list. Marketplace add-ons and Gemini in Chrome are out."},
       {a:"Judge", f:"Vertex agree/disagree/insufficient judge", d:"Locked Vertex role on the same REQ_ as the Grok critic. Vertex is not the production critic. Requires the Cloud BAA if the packet is PHI."},
       {a:"LOCAL_HARD_BLOCK", f:"Local hard block (triage)", d:"Triage outcome when Indicator 0, empty remainder after Excludes1 drops, or an unresolvable illegal pair remains. Do not send that encounter to the critic."},
-      {a:"Mode A", f:"Cloud Run SaaS mode", d:"Subscriber seat on Cloud Run + IAP in us-east4. CPU only. Startup Demo: synthetic fixtures. Production after four BAAs: same image family, real charts, still PHI. No GPU."},
+      {a:"Mode A", f:"Cloud Run SaaS mode", d:"Subscriber seat on Cloud Run + IAP in us-central1. CPU only. Startup Demo: synthetic fixtures. Production after four BAAs: same image family, real charts, still PHI. No GPU."},
       {a:"Mode B", f:"Retired local-GPU path", d:"Retired 8 Sep 2026. Local RTX 5070 Ti / used 4090 / rented GPU lab add no value on Cloud Run CPU + Grok API critic + Vertex judge. Do not restore this SKU."},
       {a:"OU", f:"Organizational unit (Workspace)", d:"Admin-console folder for users. After the Workspace BAA, put PHI handlers in a dedicated OU and disable non-covered additional Google services for that OU."},
       {a:"Privacy Rule", f:"HIPAA Privacy Rule (45 CFR 160 and 164 Subparts A & E)", d:"Limits use and disclosure of PHI. Minimum necessary applies to critic/judge packets — send the envelope, not the chart."},
@@ -746,7 +784,7 @@
       {a:"Security Rule", f:"HIPAA Security Rule (45 CFR 160 and 164 Subparts A & C)", d:"Administrative, physical, and technical safeguards for ePHI. Google implements them on Covered Services; you still configure IAM, logging, encryption, and the airlock."},
       {a:"SOC 2", f:"System and Organization Controls 2", d:"xAI states SOC 2 Type 2. Google publishes SOC reports on its compliance site. A SOC report is evidence, not a BAA."},
       {a:"Subcontractor", f:"HIPAA business-associate subcontractor", d:"Google or xAI when Verisource (the BA) sends them PHI. Each subcontractor needs its own BAA with Verisource. The clinic BAA does not automatically cover them."},
-      {a:"us-east4", f:"Google Cloud region us-east4 (Ashburn / N. Virginia)", d:"Locked Mode A region as of 7 Sep 2026. Not us-central1. Not us-east5 (Columbus). Keep PHI-capable resources in a listed region after the Cloud BAA."},
+      {a:"us-central1", f:"Google Cloud region us-central1 (Council Bluffs / Iowa)", d:"Locked Mode A region. Keep PHI-capable resources in a listed region after the Cloud BAA."},
       {a:"VPC-SC", f:"VPC Service Controls", d:"GCP perimeter around the airlock project so PHI cannot egress to an uncovered API. Itself listed among HIPAA-related Cloud products; still customer-configured."},
       {a:"Workspace", f:"Google Workspace Business Plus", d:"Ops tenant (mail, Drive, Vault, Gemini in Workspace). Super admin accepts the HIPAA Business Associate Amendment at Account → Account settings → Legal and compliance. Electronic accept is the written BAA."},
       {a:"xAI", f:"xAI LLC", d:"Vendor behind Grok. Separate company from Google and from X Corp. HIPAA: complete the BAA questionnaire at x.ai/legal/baa; do not send PHI while it is pending."},
@@ -838,7 +876,7 @@
       {a:"BAR", f:"Base Address Register", d:"PCIe window the CPU uses to see GPU memory. ReBAR / Above 4G enlarge that window to the full 16–20 GB. Distinct from LRU."},
       {a:"SAM", f:"Smart Access Memory", d:"AMD name for Resizable BAR. Same UEFI pair as ReBAR + Above 4G on the Z690-A."},
       {a:"SMT", f:"Simultaneous Multithreading", d:"Extra logical threads per core (Intel HT, AMD SMT). The 3060 video and the 14700K note: llama.cpp -t should be physical P-cores / real cores, not SMT count (12 on a 5600X, 28 on a 14700K)."},
-      {a:"WSL", f:"Windows Subsystem for Linux", d:"This project’s dev tree is WSL2 Ubuntu at ~/projects/cac-copilot. Fine for uv/pytest. Weak path for HIP on a discrete Radeon — prefer bare-metal or lemonade Windows builds for GPU lab work."},
+      {a:"WSL", f:"Windows Subsystem for Linux", d:"This project’s dev tree is WSL2 Ubuntu at ~/projects/cac-copilot-sandbox. Fine for uv/pytest. Weak path for HIP on a discrete Radeon — prefer bare-metal or lemonade Windows builds for GPU lab work."},
       {a:"WSL2", f:"Windows Subsystem for Linux 2", d:"Current WSL generation on the Windows9 box (Ubuntu 26.04 resolute). Same rule as WSL: engine tests yes; ROCm dGPU no."},
       {a:"FFN", f:"Feed-forward network", d:"The expert MLP (gate / up / down) that fires for a routed token. That is what -ncmoe or the CUDA expert LRU is moving, not the PLE table."},
       {a:"GLU", f:"Gated Linear Unit", d:"Gating used inside MoE expert FFNs. RDNA fused-MoE patches mention gate+up+GLU MMQ. Implementation detail, not a SKU."},
@@ -902,6 +940,29 @@
     const box = document.getElementById("suggest");
     const empty = document.getElementById("empty");
     const count = document.getElementById("count");
+    const resetBtn = document.getElementById("reset-deleted");
+
+    let deletedSet = new Set();
+    try {
+      const stored = localStorage.getItem("glossary-deleted");
+      if (stored) {
+        deletedSet = new Set(JSON.parse(stored));
+      }
+    } catch (e) {}
+
+    function activeTerms() {
+      return TERMS.filter(t => !deletedSet.has(t.a));
+    }
+
+    function makeTrashIcon() {
+      return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 6h18"/>
+        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+        <line x1="10" y1="11" x2="10" y2="17"/>
+        <line x1="14" y1="11" x2="14" y2="17"/>
+      </svg>`;
+    }
 
     function letterOf(t) {
       const c = t.a.replace(/^[^A-Za-z]+/, "").charAt(0).toUpperCase();
@@ -912,37 +973,146 @@
       return "term-" + t.a.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     }
 
-    const present = new Set(TERMS.map(letterOf));
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(L => {
-      const a = document.createElement("a");
-      a.textContent = L;
-      if (present.has(L)) a.href = "#letter-" + L;
-      else a.className = "empty";
-      az.appendChild(a);
-    });
+    function refreshAZ() {
+      const remainingLetters = new Set();
+      document.querySelectorAll("article:not(.hidden)").forEach(art => {
+        const abbr = art.dataset.abbr;
+        if (abbr) remainingLetters.add(letterOf({a: abbr}));
+      });
+      az.querySelectorAll("a").forEach(a => {
+        const L = a.textContent;
+        if (remainingLetters.has(L)) {
+          a.href = "#letter-" + L;
+          a.className = "";
+        } else {
+          a.removeAttribute("href");
+          a.className = "empty";
+        }
+      });
+    }
 
-    let lastLetter = "";
-    TERMS.forEach(t => {
-      const L = letterOf(t);
-      if (L !== lastLetter) {
-        lastLetter = L;
-        const h = document.createElement("div");
-        h.className = "letter";
-        h.id = "letter-" + L;
-        h.textContent = L;
-        list.appendChild(h);
+    function updateLetterHeaders() {
+      document.querySelectorAll(".letter").forEach(h => {
+        let n = h.nextElementSibling;
+        let any = false;
+        while (n && !n.classList.contains("letter")) {
+          if (n.tagName === "ARTICLE" && !n.classList.contains("hidden")) any = true;
+          n = n.nextElementSibling;
+        }
+        h.classList.toggle("hidden", !any);
+      });
+    }
+
+    function updateResetButton() {
+      const delCount = deletedSet.size;
+      if (resetBtn) {
+        if (delCount > 0) {
+          resetBtn.classList.remove("hidden");
+          resetBtn.textContent = `Restore (${delCount})`;
+        } else {
+          resetBtn.classList.add("hidden");
+        }
       }
-      const art = document.createElement("article");
-      art.id = idOf(t);
-      art.dataset.abbr = t.a;
-      art.innerHTML =
-        "<h2>" + t.a + " <span class='full'>— " + t.f + "</span></h2>" +
-        "<p>" + t.d + "</p>" +
-        "<div class='where'>Used in the CAC Copilot / workstation / Vertex discussion.</div>";
-      list.appendChild(art);
+    }
+
+    function buildList() {
+      list.innerHTML = "";
+      az.innerHTML = "";
+      const current = activeTerms();
+      const present = new Set(current.map(letterOf));
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(L => {
+        const a = document.createElement("a");
+        a.textContent = L;
+        if (present.has(L)) a.href = "#letter-" + L;
+        else a.className = "empty";
+        az.appendChild(a);
+      });
+
+      let lastLetter = "";
+      current.forEach(t => {
+        const L = letterOf(t);
+        if (L !== lastLetter) {
+          lastLetter = L;
+          const h = document.createElement("div");
+          h.className = "letter";
+          h.id = "letter-" + L;
+          h.textContent = L;
+          list.appendChild(h);
+        }
+        const art = document.createElement("article");
+        art.id = idOf(t);
+        art.dataset.abbr = t.a;
+        art.innerHTML =
+          "<h2>" + t.a + " <span class='full'>— " + t.f + "</span></h2>" +
+          "<div class='def-row'>" +
+            "<p>" + t.d + "</p>" +
+            "<button type='button' class='del-btn' aria-label='Delete entry for " + t.a.replace(/"/g, '&quot;') + "' title='Delete entry'>" +
+              makeTrashIcon() +
+            "</button>" +
+          "</div>" +
+          "<div class='where'>Used in the CAC Copilot / workstation / Vertex discussion.</div>";
+        list.appendChild(art);
+      });
+
+      count.textContent = current.length + " entries";
+      updateResetButton();
+    }
+
+    buildList();
+
+    list.addEventListener("click", ev => {
+      const btn = ev.target.closest(".del-btn");
+      if (!btn) return;
+      ev.preventDefault();
+      const art = btn.closest("article");
+      if (!art) return;
+      const abbr = art.dataset.abbr;
+      deleteEntry(abbr, art);
     });
 
-    count.textContent = TERMS.length + " entries";
+    function deleteEntry(abbr, art) {
+      if (!abbr) return;
+      deletedSet.add(abbr);
+      try {
+        localStorage.setItem("glossary-deleted", JSON.stringify([...deletedSet]));
+      } catch (e) {}
+
+      if (art) {
+        art.style.transition = "opacity 160ms ease, transform 160ms ease";
+        art.style.opacity = "0";
+        art.style.transform = "translateX(8px)";
+        setTimeout(() => {
+          art.remove();
+          onListMutated();
+        }, 160);
+      } else {
+        onListMutated();
+      }
+    }
+
+    function onListMutated() {
+      updateLetterHeaders();
+      refreshAZ();
+      updateResetButton();
+      const current = activeTerms();
+      const p = q.value.trim();
+      let visible = document.querySelectorAll("article:not(.hidden)").length;
+      empty.style.display = visible ? "none" : "block";
+      count.textContent = p
+        ? visible + " matching / " + current.length + " entries"
+        : current.length + " entries";
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        deletedSet.clear();
+        try {
+          localStorage.removeItem("glossary-deleted");
+        } catch (e) {}
+        buildList();
+        filterList(q.value);
+      });
+    }
 
     function prefixes(t, raw) {
       const p = raw.trim().toLowerCase();
@@ -957,7 +1127,7 @@
       if (!p) return [];
       const startsAbbr = [];
       const startsWord = [];
-      TERMS.forEach(t => {
+      activeTerms().forEach(t => {
         if (t.a.toLowerCase().startsWith(p)) startsAbbr.push(t);
         else if (prefixes(t, p)) startsWord.push(t);
       });
@@ -1007,25 +1177,23 @@
     function filterList(raw) {
       const p = raw.trim();
       let visible = 0;
+      const current = activeTerms();
       document.querySelectorAll("article").forEach(art => {
-        const t = TERMS.find(x => idOf(x) === art.id);
+        const t = current.find(x => idOf(x) === art.id);
+        if (!t) {
+          art.classList.add("hidden");
+          return;
+        }
         const ok = !p || prefixes(t, p);
         art.classList.toggle("hidden", !ok);
         if (ok) visible++;
       });
-      document.querySelectorAll(".letter").forEach(h => {
-        let n = h.nextElementSibling;
-        let any = false;
-        while (n && !n.classList.contains("letter")) {
-          if (n.tagName === "ARTICLE" && !n.classList.contains("hidden")) any = true;
-          n = n.nextElementSibling;
-        }
-        h.classList.toggle("hidden", !any);
-      });
+      updateLetterHeaders();
+      refreshAZ();
       empty.style.display = visible ? "none" : "block";
       count.textContent = p
-        ? visible + " matching / " + TERMS.length + " entries"
-        : TERMS.length + " entries";
+        ? visible + " matching / " + current.length + " entries"
+        : current.length + " entries";
     }
 
     q.addEventListener("input", () => {
